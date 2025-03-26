@@ -1,0 +1,19 @@
+server:
+  port: 9000
+
+spring:
+  datasource:
+    url: jdbc:postgresql://postgres-auth:5432/authdb
+    username: macgyver
+    password: Chr1st1@n9432
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+keycloak:
+  auth-server-url: http://keycloak:8080
+  realm: mac-apps
+  resource: admin-cli
+  admin:
+    username: admin
+    password: admin
