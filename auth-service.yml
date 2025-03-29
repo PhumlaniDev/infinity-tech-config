@@ -9,11 +9,20 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080
+          jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
 
 keycloak:
-  auth-server-url: http://keycloak:8080
+  auth-server-url: http://localhost:8080
   realm: mac-apps
-  resource: admin-cli
+  resource: infinity-tech-api
+  principle-attribute: preferred_username
+  credentials:
+    secret: ENC(kcYV8v/y4d4F+R4ZI5H7Ak74BSfx1lRQ1JG5BpLhcdGLN/XP2EfdxebTVZ2mJD6Oh0LNCqVP87bwzOUmUNZpKdBUthYKMc0ZO3Zspv1OFMg=)
   admin:
-    username: admin
-    password: admin
+    username: testuser
+    password: TGsj4vb5knipd1
