@@ -2,11 +2,6 @@ server:
   port: 9100
 
 spring:
-  application:
-    name: product-service
-  config:
-    import: optional:configserver:http://config-server:8888
-
   datasource:
     url: jdbc:postgresql://postgres-product:5432/productdb
     username: macgyver
