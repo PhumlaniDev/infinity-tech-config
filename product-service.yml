@@ -1,0 +1,31 @@
+server:
+  port: 9100
+
+spring:
+  application:
+    name: product-service
+  config:
+    import: optional:configserver:http://config-server:8888
+
+  datasource:
+    url: jdbc:postgresql://postgres-product:5432/productdb
+    username: macgyver
+    password: Chr1st1@n9432
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  redis:
+    host: redis
+    port: 6379
+
+  cache:
+    type: redis
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
