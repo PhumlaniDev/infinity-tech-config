@@ -6,11 +6,15 @@ spring:
     url: jdbc:postgresql://postgres-product:5432/productdb
     username: macgyver
     password: Chr1st1@n9432
+    driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
 
   redis:
     host: redis
