@@ -2,7 +2,9 @@ server:
   port: 9100
 
 spring:
-  profiles: default
+  config:
+    activate:
+      on-profile: default
   datasource:
     url: jdbc:postgresql://postgres-product:5432/productdb
     username: macgyver

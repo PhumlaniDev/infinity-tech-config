@@ -1,5 +1,4 @@
 spring:
-  profiles: default
   redis:
     host: redis
     port: 6379
