@@ -1,17 +1,26 @@
+server:
+  port: 8082
+
 spring:
-  redis:
-    host: redis
-    port: 6379
   cloud:
+    activate:
+      on-profile: default
     gateway:
       routes:
         - id: auth-service
           uri: http://auth-service:9000
           predicates:
             - Path=/api/v1/auth/**
-          filters:
-            - name: RequestRateLimiter
-              args:
-                redis-rate-limiter.replenishRate: 10
-                redis-rate-limiter.burstCapacity: 20
-                redis-rate-limiter.requestedTokens: 1
+        - id: product-service
+          uri: http://product-service:9100
+          predicates:
+            - Path=/api/v1/product/**
+      default-filters:
+        - AddResponseHeader=X-Gateway-Response, Passed-through-API-Gateway
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter.replenishRate: 5
+            redis-rate-limiter.burstCapacity: 10
+  redis:
+    host: redis
+    port: 6379

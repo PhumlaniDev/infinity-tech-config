@@ -2,15 +2,16 @@ server:
   port: 9100
 
 spring:
+  application:
+    name: product-service
   config:
     activate:
       on-profile: default
   datasource:
-    url: jdbc:postgresql://postgres-product:5432/productdb
-    username: macgyver
-    password: Chr1st1@n9432
+    url: jdbc:postgresql://localhost:5432/productdb
+    username: "{cipher}57caf260ec2b27817213238d373e5ef383f7d95d60abcc539b0b8a0ee704b72e"
+    password: "{cipher}11a18f7371f24efdc5e593a2e5681d8cc4ab646e59b2db03c1f1b483fbea85b9"
     driver-class-name: org.postgresql.Driver
-
   jpa:
     hibernate:
       ddl-auto: update
@@ -18,14 +19,11 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-
   redis:
-    host: redis
+    host: localhost
     port: 6379
-
   cache:
     type: redis
-
 management:
   endpoints:
     web:
