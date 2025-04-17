@@ -4,7 +4,7 @@ server:
 spring:
   cloud:
     activate:
-      on-profile: default
+      on-profile: api_gateway
     gateway:
       routes:
         - id: auth-service
