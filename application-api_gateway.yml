@@ -2,6 +2,13 @@ server:
   port: 8082
 
 spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwt:
+            issuer-uri: http://localhost:8080
+            jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.jwt-set-uri}/realms/mac-apps/protocol/openid-connect/certs
   cloud:
     activate:
       on-profile: api_gateway
