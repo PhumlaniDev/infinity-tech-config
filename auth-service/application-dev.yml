@@ -2,9 +2,11 @@ server:
   port: 9000
 
 spring:
+  application:
+    name: auth-service
   config:
     activate:
-      on-profile: auth_service
+      on-profile: dev
   datasource:
     url: jdbc:postgresql://postgres-auth:5432/authdb
     username: "{cipher}57caf260ec2b27817213238d373e5ef383f7d95d60abcc539b0b8a0ee704b72e"

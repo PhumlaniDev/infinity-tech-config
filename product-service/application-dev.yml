@@ -6,7 +6,7 @@ spring:
     name: product-service
   config:
     activate:
-      on-profile: product_service
+      on-profile: dev
   datasource:
     url: jdbc:postgresql://localhost:5432/productdb
     username: "{cipher}57caf260ec2b27817213238d373e5ef383f7d95d60abcc539b0b8a0ee704b72e"
