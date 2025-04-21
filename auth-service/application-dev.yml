@@ -9,8 +9,8 @@ spring:
       on-profile: dev
   datasource:
     url: jdbc:postgresql://postgres-auth:5432/authdb
-    username: "{cipher}57caf260ec2b27817213238d373e5ef383f7d95d60abcc539b0b8a0ee704b72e"
-    password: "{cipher}11a18f7371f24efdc5e593a2e5681d8cc4ab646e59b2db03c1f1b483fbea85b9"
+    username: "{cipher}276ad83eab466b04476415aeab00295f53776b0ab251f6b086d9a9d8eebb25b"
+    password: "{cipher}276ad83eab466b04476415aeab00295f53776b0ab251f6b086d9a9d8eebb25b"
   jpa:
     hibernate:
       ddl-auto: update
@@ -24,13 +24,13 @@ spring:
 keycloak:
   auth-server-url: http://localhost:8080
   realm: mac-apps
-  resource: infinity-tech-api
+  resource: tech-hive-store
   principle-attribute: preferred_username
   credentials:
-    secret:
+    secret: "${cipher}16d2c790db842261e99646a0ba019ab8d4f2c16934d4f34eac0c86f68edec17c86d5e323c60ace3ee5f71bc49f4aae20eacbc89ca4ebc26591103dd7615846d8"
   admin:
-    username:
-    password:
+    username: "${cipher}4240bd962ecc20ac1270d9abfaefb6178ea95575c8546df44ddc9b157147de82"
+    password: "${cipher}c93aa281f5c51001eb4630606f4175fcf12799d53c198a7625aff1aaf74fee25"
 
 management:
   endpoints:
