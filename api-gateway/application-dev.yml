@@ -1,33 +1,61 @@
 server:
-  port: 8082
+  port: 8080
 
 spring:
   application:
     name: api-gateway
+  cloud:
+    gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "http:localhost:3000"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeader: "*"
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: auth-service
+          uri: lb://auth-microservice
+          predicates:
+            - Path=/api/auth/**
+        - id: product-service
+          uri: lb://product-microservice
+          predicates:
+            - Path=/api/products/**
+          filters:
+            - StripPrefix=1
+      default-filters:
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter.replenish-rate: 10
+            redis-rate-limiter.burst-capacity: 20
+            redis-rate-limiter.requestedTokens: 1
+        - AddResponseHeader=X-Gateway-Response, Passed-through-API-Gateway
+        - AddRequestHeader=X-Response-Time, ${date}
+    config:
+      uri: http://localhost:8888
+
   security:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: http://localhost:8080/realms/mac-apps/protocol/openid-connect/certs
-  cloud:
-    activate:
-      on-profile: dev
-    gateway:
-      routes:
-        - id: auth-service
-          uri: http://auth-service:9000
-          predicates:
-            - Path=/api/v1/auth/**
-        - id: product-service
-          uri: http://product-service:9100
-          predicates:
-            - Path=/api/v1/product/**
-      default-filters:
-        - AddResponseHeader=X-Gateway-Response, Passed-through-API-Gateway
-        - name: RequestRateLimiter
-          args:
-            redis-rate-limiter.replenishRate: 5
-            redis-rate-limiter.burstCapacity: 10
-  redis:
-    host: redis
-    port: 6379
+          jwk-set-uri: http://localhost:8080/realms/ecommerce/protocol/openid-connect/certs
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
