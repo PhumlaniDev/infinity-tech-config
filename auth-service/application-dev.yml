@@ -8,7 +8,7 @@ spring:
     activate:
       on-profile: dev
   datasource:
-    url: jdbc:postgresql://postgres-auth:5432/authdb
+    url: jdbc:postgresql://localhost:5432/authdb
     username: "{cipher}276ad83eab466b04476415aeab00295f53776b0ab251f6b086d9a9d8eebb25b"
     password: "{cipher}276ad83eab466b04476415aeab00295f53776b0ab251f6b086d9a9d8eebb25b"
   jpa:
