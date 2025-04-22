@@ -32,6 +32,11 @@ keycloak:
     username: "${cipher}4240bd962ecc20ac1270d9abfaefb6178ea95575c8546df44ddc9b157147de82"
     password: "${cipher}c93aa281f5c51001eb4630606f4175fcf12799d53c198a7625aff1aaf74fee25"
 
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
 management:
   endpoints:
     web:
