@@ -9,8 +9,8 @@ spring:
       on-profile: dev
   datasource:
     url: jdbc:postgresql://localhost:5432/authdb
-    username: "{cipher}70d245b37109f04467ea8326a597e474eccf57adceb802f0d6ae2d678e774cf9"
-    password: "{cipher}70d245b37109f04467ea8326a597e474eccf57adceb802f0d6ae2d678e774cf9"
+    username: "{cipher}db741a80ad9c0b7b4aa57bd3ab79572e586e04033acb12358f6ef179077db680"
+    password: "{cipher}db741a80ad9c0b7b4aa57bd3ab79572e586e04033acb12358f6ef179077db680"
   jpa:
     hibernate:
       ddl-auto: update
@@ -29,8 +29,8 @@ keycloak:
   credentials:
     secret: "${cipher}c13c1e8686cca3a02c118c5630c5aeb2a2fe6741cbe613354db72e8851baa62bb4a8c5098dc351dbd73c5da6d956415a23dbe0bd894f776a5735df8b4dc1d5cf"
   admin:
-    username: "${cipher}de943e098b6f1e481aa10bfea1c0c8b27713d4747ad8254bd973e6ea7fe80c86"
-    password: "${cipher}ab2207ed18d57e2a9a9043e0367b5c0dc25acda1c327bb026747cd787d00ab23"
+    username: "${cipher}6700290e43350038607a958754d6dc54a5a13b213edbca43258e2947df146784"
+    password: "${cipher}c1264c94bda2024869014cbacef5d7edbbf6fb85855291b28bcc181080e1ddd5"
 
 eureka:
   client:
