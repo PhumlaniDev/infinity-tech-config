@@ -9,8 +9,8 @@ spring:
       on-profile: dev
   datasource:
     url: jdbc:postgresql://localhost:5432/authdb
-    username: "{cipher}276ad83eab466b04476415aeab00295f53776b0ab251f6b086d9a9d8eebb25b"
-    password: "{cipher}276ad83eab466b04476415aeab00295f53776b0ab251f6b086d9a9d8eebb25b"
+    username: "{cipher}c2eab371aecf1a3738e2639fada53e043866cf226200ff712a557916b6d70e12"
+    password: "{cipher}c2eab371aecf1a3738e2639fada53e043866cf226200ff712a557916b6d70e12"
   jpa:
     hibernate:
       ddl-auto: update
