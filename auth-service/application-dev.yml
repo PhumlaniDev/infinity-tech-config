@@ -30,7 +30,7 @@ keycloak:
     secret: "{cipher}58f2bf1671e81d93a39977f8a2ce7c0c74c95d690b297f1bddb3941e8285e76df9474d97e284c76b860f98730e16ac4ff46ec974205d08aedb04ced98468a0e8"
   admin:
     username: "{cipher}6700290e43350038607a958754d6dc54a5a13b213edbca43258e2947df146784"
-    password: "{cipher}c1264c94bda2024869014cbacef5d7edbbf6fb85855291b28bcc181080e1ddd5"
+    password: "{cipher}1237e2ea33634a020ea9d527e65c3574bfe1bc277e5e19dc4bdb991d9169a6c7"
 
 eureka:
   client:
