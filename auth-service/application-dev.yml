@@ -7,14 +7,10 @@ spring:
   config:
     activate:
       on-profile: dev
-  credentials:
-    keycloak-secret: "${cipher}781d21de88954c53870db242aa9dbca7f5c5693a5a952673108d1021ecaac567290632af392bfb927db804cfbac416872413fc8e168ce71dfc9aefc757d401eb"
-    keycloak-admin-username: "${cipher}e4873f662f01f5713bfa82568aedefcf3d85246f5dd6bd8add81e56a49d491a4"
-    keycloak-admin-password: "${cipher}bf731f3c48b46f9f1058a6709a3362980aa96d79e2e4e5e4dd340b80a95a3fce"
   datasource:
     url: jdbc:postgresql://localhost:5432/authdb
-    username: "{cipher}c2eab371aecf1a3738e2639fada53e043866cf226200ff712a557916b6d70e12"
-    password: "{cipher}c2eab371aecf1a3738e2639fada53e043866cf226200ff712a557916b6d70e12"
+    username: ENC(sJxHViNwmSRkOJUU9TE/1I6YvuftxwN2ia5wdUS+U/qVMC9B+OU/HBam/HYX5C3z)
+    password: ENC(sJxHViNwmSRkOJUU9TE/1I6YvuftxwN2ia5wdUS+U/qVMC9B+OU/HBam/HYX5C3z)
   jpa:
     hibernate:
       ddl-auto: update
@@ -30,6 +26,11 @@ keycloak:
   realm: mac-apps
   resource: tech-hive-store
   principle-attribute: preferred_username
+  credentials:
+    secret: ENC(2Q1iXjMvLzJ7w6XXmdkwMtpILpF7Y4bjZ8c3h5i0sbhPsDR+5fXX9OrmViZN/9ZnRjTrdcn+VkeoPCP2sM5E9CxcW+Ajek4Fd2Pm08MvLWI=)
+  admin:
+    username: ENC(RW6QmrxdIa7BbsA1+4akpOoVaeXY9WZsolf76hAqHvEVf0+yRdZ6/Dnbo9PNNgU6)
+    password: ENC(y3V5c4mj31FIPdr6coleoREAvkqRWzWJUtW2iPiKRM/Oe4llK2HCzWl7R+/Yc1vE)
 
 eureka:
   client:
