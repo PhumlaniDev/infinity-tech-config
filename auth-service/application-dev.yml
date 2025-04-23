@@ -9,8 +9,8 @@ spring:
       on-profile: dev
   datasource:
     url: jdbc:postgresql://localhost:5432/authdb
-    username: ENC(sJxHViNwmSRkOJUU9TE/1I6YvuftxwN2ia5wdUS+U/qVMC9B+OU/HBam/HYX5C3z)
-    password: ENC(sJxHViNwmSRkOJUU9TE/1I6YvuftxwN2ia5wdUS+U/qVMC9B+OU/HBam/HYX5C3z)
+    username: "{cipher}70d245b37109f04467ea8326a597e474eccf57adceb802f0d6ae2d678e774cf9"
+    password: "{cipher}70d245b37109f04467ea8326a597e474eccf57adceb802f0d6ae2d678e774cf9"
   jpa:
     hibernate:
       ddl-auto: update
@@ -27,10 +27,10 @@ keycloak:
   resource: tech-hive-store
   principle-attribute: preferred_username
   credentials:
-    secret: ENC(2Q1iXjMvLzJ7w6XXmdkwMtpILpF7Y4bjZ8c3h5i0sbhPsDR+5fXX9OrmViZN/9ZnRjTrdcn+VkeoPCP2sM5E9CxcW+Ajek4Fd2Pm08MvLWI=)
+    secret: "${cipher}c13c1e8686cca3a02c118c5630c5aeb2a2fe6741cbe613354db72e8851baa62bb4a8c5098dc351dbd73c5da6d956415a23dbe0bd894f776a5735df8b4dc1d5cf"
   admin:
-    username: ENC(RW6QmrxdIa7BbsA1+4akpOoVaeXY9WZsolf76hAqHvEVf0+yRdZ6/Dnbo9PNNgU6)
-    password: ENC(y3V5c4mj31FIPdr6coleoREAvkqRWzWJUtW2iPiKRM/Oe4llK2HCzWl7R+/Yc1vE)
+    username: "${cipher}de943e098b6f1e481aa10bfea1c0c8b27713d4747ad8254bd973e6ea7fe80c86"
+    password: "${cipher}ab2207ed18d57e2a9a9043e0367b5c0dc25acda1c327bb026747cd787d00ab23"
 
 eureka:
   client:
