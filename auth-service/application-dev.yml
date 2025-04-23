@@ -27,7 +27,7 @@ keycloak:
   resource: tech-hive-store
   principle-attribute: preferred_username
   credentials:
-    secret: "{cipher}c13c1e8686cca3a02c118c5630c5aeb2a2fe6741cbe613354db72e8851baa62bb4a8c5098dc351dbd73c5da6d956415a23dbe0bd894f776a5735df8b4dc1d5cf"
+    secret: "{cipher}58f2bf1671e81d93a39977f8a2ce7c0c74c95d690b297f1bddb3941e8285e76df9474d97e284c76b860f98730e16ac4ff46ec974205d08aedb04ced98468a0e8"
   admin:
     username: "{cipher}6700290e43350038607a958754d6dc54a5a13b213edbca43258e2947df146784"
     password: "{cipher}c1264c94bda2024869014cbacef5d7edbbf6fb85855291b28bcc181080e1ddd5"
