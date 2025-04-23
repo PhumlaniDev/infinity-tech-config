@@ -27,10 +27,10 @@ keycloak:
   resource: tech-hive-store
   principle-attribute: preferred_username
   credentials:
-    secret: "${cipher}c13c1e8686cca3a02c118c5630c5aeb2a2fe6741cbe613354db72e8851baa62bb4a8c5098dc351dbd73c5da6d956415a23dbe0bd894f776a5735df8b4dc1d5cf"
+    secret: "{cipher}c13c1e8686cca3a02c118c5630c5aeb2a2fe6741cbe613354db72e8851baa62bb4a8c5098dc351dbd73c5da6d956415a23dbe0bd894f776a5735df8b4dc1d5cf"
   admin:
-    username: "${cipher}6700290e43350038607a958754d6dc54a5a13b213edbca43258e2947df146784"
-    password: "${cipher}c1264c94bda2024869014cbacef5d7edbbf6fb85855291b28bcc181080e1ddd5"
+    username: "{cipher}6700290e43350038607a958754d6dc54a5a13b213edbca43258e2947df146784"
+    password: "{cipher}c1264c94bda2024869014cbacef5d7edbbf6fb85855291b28bcc181080e1ddd5"
 
 eureka:
   client:
