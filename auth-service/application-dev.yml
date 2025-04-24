@@ -19,7 +19,6 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: http://localhost:8080/realms/mac-apps
-          jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
 
 keycloak:
   auth-server-url: http://localhost:8080
@@ -31,6 +30,7 @@ keycloak:
   admin:
     username: "{cipher}6700290e43350038607a958754d6dc54a5a13b213edbca43258e2947df146784"
     password: "{cipher}1237e2ea33634a020ea9d527e65c3574bfe1bc277e5e19dc4bdb991d9169a6c7"
+  end_session_uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/logout
 
 eureka:
   client:
