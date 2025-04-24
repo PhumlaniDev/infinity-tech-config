@@ -30,7 +30,7 @@ keycloak:
   admin:
     username: "{cipher}6700290e43350038607a958754d6dc54a5a13b213edbca43258e2947df146784"
     password: "{cipher}1237e2ea33634a020ea9d527e65c3574bfe1bc277e5e19dc4bdb991d9169a6c7"
-  end_session_uri: http://localhost:8080/realms/mac-apps/protocol/openid-connect/logout
+  logout_uri: http://localhost:8080/realms/mac-apps/protocol/openid-connect/logout
 
 eureka:
   client:
