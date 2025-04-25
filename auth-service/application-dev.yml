@@ -19,6 +19,17 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: http://localhost:8080/realms/mac-apps
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: "{cipher}d1ac4b0560b26bad9c44cff9b12ef2fad581f090d7f1b12cd1b94114c050a8f6c286b7a9f5949c19e07fa81441634cdd"
+    password: "{cipher}46e0e7a795779e378856d592ee884caf178c9c8fbe8adc8fa88ca850bc3da985b434bf39f0d500b93ceff3082cf67b2d"
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 
 keycloak:
   auth-server-url: http://localhost:8080
