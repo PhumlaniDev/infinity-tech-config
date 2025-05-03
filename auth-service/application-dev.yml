@@ -30,6 +30,8 @@ spring:
           auth: true
           starttls:
             enable: true
+  cache:
+    type: caffeine
 
 keycloak:
   auth-server-url: http://localhost:8080
