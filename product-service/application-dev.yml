@@ -32,6 +32,9 @@ spring:
     port: 6379
   cache:
     type: redis
+keycloak:
+  resource: tech-hive-store
+  principle-attribute: preferred_username
 management:
   endpoints:
     web:
