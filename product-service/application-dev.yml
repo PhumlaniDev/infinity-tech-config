@@ -9,8 +9,8 @@ spring:
       on-profile: dev
   datasource:
     url: jdbc:postgresql://localhost:5432/productdb
-    username: "{cipher}57caf260ec2b27817213238d373e5ef383f7d95d60abcc539b0b8a0ee704b72e"
-    password: "{cipher}11a18f7371f24efdc5e593a2e5681d8cc4ab646e59b2db03c1f1b483fbea85b9"
+    username: "{cipher}db741a80ad9c0b7b4aa57bd3ab79572e586e04033acb12358f6ef179077db680"
+    password: "{cipher}db741a80ad9c0b7b4aa57bd3ab79572e586e04033acb12358f6ef179077db680"
     driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 5       # Keep low to avoid exhausting local DB connections
