@@ -36,26 +36,26 @@ spring:
             - Path=/api/v1/products/**
           filters:
             - StripPrefix=1
-            - RemoveRequestHeader=Cookie
-            - RemoveRequestHeader=Authorization
+#            - RemoveRequestHeader=Cookie
+#            - RemoveRequestHeader=Authorization
 
-        - id: secured-product-service
-          uri: lb://product-microservice
-          predicates:
-            - Method=POST, PATCH, PUT,DELETE
-            - Path=/api/v1/products/**
-          filters:
-            - StripPrefix=1
-            - RemoveRequestHeader=Cookie
-            - RoleHeaderFilter
-      default-filters:
-        - name: RequestRateLimiter
-          args:
-            redis-rate-limiter.replenish-rate: 10
-            redis-rate-limiter.burst-capacity: 20
-            redis-rate-limiter.requestedTokens: 1
-        - AddResponseHeader=X-Gateway-Response, Passed-through-API-Gateway
-        - AddRequestHeader=X-Response-Time, ${date}
+#        - id: secured-product-service
+#          uri: lb://product-microservice
+#          predicates:
+#            - Method=POST, PATCH, PUT,DELETE
+#            - Path=/api/v1/products/**
+#          filters:
+#            - StripPrefix=1
+#            - RemoveRequestHeader=Cookie
+#            - RoleHeaderFilter
+#      default-filters:
+#        - name: RequestRateLimiter
+#          args:
+#            redis-rate-limiter.replenish-rate: 10
+#            redis-rate-limiter.burst-capacity: 20
+#            redis-rate-limiter.requestedTokens: 1
+#        - AddResponseHeader=X-Gateway-Response, Passed-through-API-Gateway
+#        - AddRequestHeader=X-Response-Time, ${date}
     config:
       uri: http://localhost:8888
 
