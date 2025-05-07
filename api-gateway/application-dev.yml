@@ -41,7 +41,7 @@ spring:
         - id: secured-product-service
           uri: lb://product-microservice
           predicates:
-            - METHOD=POST,PUT,PATCH,DELETE
+            - Method=POST, PATCH, PUT,DELETE
             - Path=/api/v1/products/**
           filters:
             - StripPrefix=1
