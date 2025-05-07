@@ -56,7 +56,6 @@ spring:
             redis-rate-limiter.requestedTokens: 1
         - AddResponseHeader=X-Gateway-Response, Passed-through-API-Gateway
         - AddRequestHeader=X-Response-Time, ${date}
-        - TokenRelay
     config:
       uri: http://localhost:8888
 
