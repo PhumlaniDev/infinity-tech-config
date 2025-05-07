@@ -36,8 +36,7 @@ spring:
             - Path=/api/v1/products/**
           filters:
             - StripPrefix=1
-            - RemoveRequestHeader=Cookie
-#            - RemoveRequestHeader=Authorization
+            - RemoveRequestHeader=Authorization
 
 #        - id: secured-product-service
 #          uri: lb://product-microservice
