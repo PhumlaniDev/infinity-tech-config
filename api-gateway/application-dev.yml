@@ -36,7 +36,7 @@ spring:
             - Path=/api/v1/products/**
           filters:
             - StripPrefix=1
-#            - RemoveRequestHeader=Cookie
+            - RemoveRequestHeader=Cookie
 #            - RemoveRequestHeader=Authorization
 
 #        - id: secured-product-service
