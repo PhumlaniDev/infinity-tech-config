@@ -37,10 +37,10 @@ spring:
           uri: lb://product-service
           predicates:
             - Path=/api/v1/products/**
-          filters:
-            - StripPrefix=1
-            - RemoveRequestHeader=Cookie
-            - RemoveRequestHeader=Authorization
+#          filters:
+#            - StripPrefix=1
+#            - RemoveRequestHeader=Cookie
+#            - RemoveRequestHeader=Authorization
 
 #        - id: secured-product-service
 #          uri: lb://product-microservice
