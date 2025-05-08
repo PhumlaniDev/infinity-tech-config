@@ -32,11 +32,11 @@ spring:
     port: 6379
   cache:
     type: redis
-#  security:
-#    oauth2:
-#      resourceserver:
-#        jwt:
-#          jwk-set-uri: http://localhost:8080/realms/mac-apps/protocol/openid-connect/certs
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8080/realms/mac-apps/protocol/openid-connect/certs
 keycloak:
   resource: tech-hive-store
   principle-attribute: preferred_username
