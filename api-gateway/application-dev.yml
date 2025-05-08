@@ -39,11 +39,10 @@ spring:
             - Path=/api/v1/products/**
           filters:
             - StripPrefix=1
-            - RemoveRequestHeader=Cookie
-            - RemoveRequestHeader=Authorization
+            - AddRequestHeader=X-Response-Time, ${#t(java.time.Instant).now().toString()}
 
         - id: secured-product-service
-          uri: lb://product-microservice
+          uri: lb://product-service
           predicates:
             - Method=POST, PATCH, PUT,DELETE
             - Path=/api/v1/products/**
@@ -58,7 +57,7 @@ spring:
             redis-rate-limiter.burst-capacity: 20
             redis-rate-limiter.requestedTokens: 1
         - AddResponseHeader=X-Gateway-Response, Passed-through-API-Gateway
-        - AddRequestHeader=X-Response-Time, ${date}
+        - AddRequestHeader=X-Response-Time, ${#t(java.time.Instant).now().toString()}
     config:
       uri: http://localhost:8888
 
