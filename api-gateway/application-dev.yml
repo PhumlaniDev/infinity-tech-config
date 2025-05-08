@@ -33,23 +33,26 @@ spring:
             - RemoveRequestHeader=Cookie
             - RemoveRequestHeader=Authorization
 
-        - id: product-service
-          uri: lb://product-service
-          predicates:
-            - Path=/api/v1/products/**
-          filters:
-            - StripPrefix=1
-            - AddRequestHeader=X-Response-Time, ${#t(java.time.Instant).now().toString()}
+          # ✅ Public GETs
+            - id: product-service-public
+              uri: lb://product-service
+              predicates:
+                - Method=GET
+                - Path=/api/v1/products/**
+              filters:
+                - StripPrefix=1
+                - RemoveRequestHeader=Authorization
+                - RemoveRequestHeader=Cookie
 
-        - id: secured-product-service
-          uri: lb://product-service
-          predicates:
-            - Method=POST, PATCH, PUT,DELETE
-            - Path=/api/v1/products/**
-          filters:
-            - StripPrefix=1
-            - RemoveRequestHeader=Cookie
-            - RoleHeaderFilter
+            # 🔐 Secured write routes
+            - id: product-service-secured
+              uri: lb://product-service
+              predicates:
+                - Method=POST,PUT,PATCH,DELETE
+                - Path=/api/v1/products/**
+              filters:
+                - StripPrefix=1
+                - RoleHeaderFilter
       default-filters:
         - name: RequestRateLimiter
           args:
