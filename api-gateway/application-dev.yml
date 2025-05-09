@@ -66,21 +66,9 @@ spring:
 
   security:
     oauth2:
-      client:
-        registration:
-          tech-hive-store:
-            client-id: tech-hive-store
-            client-secret: "{cipher}58f2bf1671e81d93a39977f8a2ce7c0c74c95d690b297f1bddb3941e8285e76df9474d97e284c76b860f98730e16ac4ff46ec974205d08aedb04ced98468a0e8"
-            scope: openid
-            authorization-grant-type: authorization_code
-            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
-        provider:
-          tech-hive-store:
-            issuer-uri: http://localhost:8080/realms/mac-apps
       resourceserver:
         jwt:
           issuer-uri: http://localhost:8080/realms/mac-apps
-          jwk-set-uri: http://localhost:8080/realms/mac-apps/protocol/openid-connect/certs
 
 eureka:
   client:
