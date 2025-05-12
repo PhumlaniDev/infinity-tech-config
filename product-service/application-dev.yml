@@ -37,6 +37,7 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: http://localhost:8080/realms/mac-apps
+          jwk-uri: http://localhost:8080/realms/mac-apps/protocol/openid-connect/certs
 keycloak:
   resource: tech-hive-store
   principle-attribute: preferred_username
