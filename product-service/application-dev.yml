@@ -32,14 +32,14 @@ spring:
     port: 6379
   cache:
     type: redis
-#  security:
-#    oauth2:
-#      resourceserver:
-#        jwt:
-#          issuer-uri: http://localhost:8080/realms/mac-apps
-#keycloak:
-#  resource: tech-hive-store
-#  principle-attribute: preferred_username
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/mac-apps
+keycloak:
+  resource: tech-hive-store
+  principle-attribute: preferred_username
 
 eureka:
   client:
