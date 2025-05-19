@@ -40,8 +40,6 @@ spring:
           uri: lb://product-service
           predicates:
             - Path=/api/v1/products/**
-          metadata:
-            requiresRole: ROLE_admin
 #      default-filters:
 #        - name: RequestRateLimiter
 #          args:
