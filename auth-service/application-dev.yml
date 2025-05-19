@@ -9,8 +9,8 @@ spring:
       on-profile: dev
   datasource:
     url: jdbc:postgresql://localhost:5432/authdb
-    username: "{cipher}db741a80ad9c0b7b4aa57bd3ab79572e586e04033acb12358f6ef179077db680"
-    password: "{cipher}db741a80ad9c0b7b4aa57bd3ab79572e586e04033acb12358f6ef179077db680"
+    username: "{cipher}2dbb4f8fb118abdff5534ba5bc8c8ed8cc1435a333a2958811a3f9713215d1ee"
+    password: "{cipher}2dbb4f8fb118abdff5534ba5bc8c8ed8cc1435a333a2958811a3f9713215d1ee"
     driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 5       # Keep low to avoid exhausting local DB connections
@@ -35,8 +35,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: "{cipher}d1ac4b0560b26bad9c44cff9b12ef2fad581f090d7f1b12cd1b94114c050a8f6c286b7a9f5949c19e07fa81441634cdd"
-    password: "{cipher}46e0e7a795779e378856d592ee884caf178c9c8fbe8adc8fa88ca850bc3da985b434bf39f0d500b93ceff3082cf67b2d"
+    username: "{cipher}2d53a4f5c04bfa61ad47c5ac020e7850e65b1fb46c61be8367cb89d3aec5878ae7d6176dfc9cb8faec5056e87cccb536"
+    password: "{cipher}cf4c834689d8814a4c3942fd8e475f749adee978e026d3e802b309612d357b63d394082496df8474bf1dbc97ce2c7a4c079248969f7523def3096726610bb705e6a4c5e3c6a4792ae568508e7461d6b0dd14dc20c79671767cbf3b01f8ed81d3"
     properties:
       mail:
         smtp:
@@ -52,10 +52,10 @@ keycloak:
   resource: tech-hive-store
   principle-attribute: preferred_username
   credentials:
-    secret: "{cipher}58f2bf1671e81d93a39977f8a2ce7c0c74c95d690b297f1bddb3941e8285e76df9474d97e284c76b860f98730e16ac4ff46ec974205d08aedb04ced98468a0e8"
+    secret: "{cipher}b95c0c56236b30fc32c8e1addeec3cc68295f0205ffc19bf798204e9d43d833e67ee3597c606fe95f1948f32d4cda9ce7931b008f41f2f5f8ddd3b2a12d32506"
   admin:
-    username: "{cipher}6700290e43350038607a958754d6dc54a5a13b213edbca43258e2947df146784"
-    password: "{cipher}1237e2ea33634a020ea9d527e65c3574bfe1bc277e5e19dc4bdb991d9169a6c7"
+    username: "{cipher}1b1605dd29d70df25c643ed64a28779456c1453c2252432b3a77e77ae35935d0"
+    password: "{cipher}9691f299e5d13785d56be58db20a811fbea1b1b8469c6d0b7dfb2040be6eac09"
   logout_uri: http://localhost:8080/realms/mac-apps/protocol/openid-connect/logout
 
 eureka:
