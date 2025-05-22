@@ -40,6 +40,15 @@ spring:
           uri: lb://product-service
           predicates:
             - Path=/api/v1/products/**
+
+        # Cart service
+        - id: cart-service
+          uri: lb://cart-service
+          predicates:
+            - Path=/api/v1/carts/**
+#          filters:
+#            - RewritePath=/api/v1/carts/(?<segment>.*), /carts/${segment}
+            # Uncomment the following lines to enable rate limiting and response headers
 #      default-filters:
 #        - name: RequestRateLimiter
 #          args:
