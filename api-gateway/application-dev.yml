@@ -45,7 +45,7 @@ spring:
         - id: cart-service
           uri: lb://cart-service
           predicates:
-            - Path=/api/v1/carts/**
+            - Path=/api/v1/cart/**
 #          filters:
 #            - RewritePath=/api/v1/carts/(?<segment>.*), /carts/${segment}
             # Uncomment the following lines to enable rate limiting and response headers
