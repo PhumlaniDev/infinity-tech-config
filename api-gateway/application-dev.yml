@@ -34,6 +34,7 @@ spring:
           uri: lb://product-service
           predicates:
             - Path=/api/v1/products/all
+            - Path=/api/v1/products/price/**
 
         # 🔐 Secured write routes
         - id: product-service-secured
