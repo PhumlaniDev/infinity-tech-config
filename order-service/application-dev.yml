@@ -1,0 +1,57 @@
+server:
+  port: 9300
+
+spring:
+  application:
+    name: order-service
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    url: jdbc:postgresql://localhost:5432/orderdb
+    username: "{cipher}2dbb4f8fb118abdff5534ba5bc8c8ed8cc1435a333a2958811a3f9713215d1ee"
+    password: "{cipher}2dbb4f8fb118abdff5534ba5bc8c8ed8cc1435a333a2958811a3f9713215d1ee"
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 5       # Keep low to avoid exhausting local DB connections
+      minimum-idle: 2            # Few idle connections are enough
+      idle-timeout: 30000        # 30 sec before closing idle connections
+      max-lifetime: 1800000      # 30 minutes
+      connection-timeout: 10000  # 10 seconds max wait for a connection
+      pool-name: DevHikariCP
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+  redis:
+    host: localhost
+    port: 6379
+  cache:
+    type: redis
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/mac-apps
+          jwk-uri: http://localhost:8080/realms/mac-apps/protocol/openid-connect/certs
+keycloak:
+  resource: tech-hive-store
+  principle-attribute: preferred_username
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
