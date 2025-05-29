@@ -1,0 +1,86 @@
+server:
+  port: 9300
+
+spring:
+  application:
+    name: notification-service
+
+  config:
+    activate:
+      on-profile: dev
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/notificationdb
+    username: "{cipher}2dbb4f8fb118abdff5534ba5bc8c8ed8cc1435a333a2958811a3f9713215d1ee"
+    password: "{cipher}2dbb4f8fb118abdff5534ba5bc8c8ed8cc1435a333a2958811a3f9713215d1ee"
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 5       # Keep low to avoid exhausting local DB connections
+      minimum-idle: 2            # Few idle connections are enough
+      idle-timeout: 30000        # 30 sec before closing idle connections
+      max-lifetime: 1800000      # 30 minutes
+      connection-timeout: 10000  # 10 seconds max wait for a connection
+      pool-name: DevHikariCP
+
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:db/schema.sql
+
+  flyway:
+    enabled: true
+    locations: classpath:/db/migration
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/mac-apps
+          jwk-uri: http://localhost:8080/realms/mac-apps/protocol/openid-connect/certs
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: "{cipher}2d53a4f5c04bfa61ad47c5ac020e7850e65b1fb46c61be8367cb89d3aec5878ae7d6176dfc9cb8faec5056e87cccb536"
+    password: "{cipher}cf4c834689d8814a4c3942fd8e475f749adee978e026d3e802b309612d357b63d394082496df8474bf1dbc97ce2c7a4c079248969f7523def3096726610bb705e6a4c5e3c6a4792ae568508e7461d6b0dd14dc20c79671767cbf3b01f8ed81d3"
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML
+    cache: false
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+logging:
+  level:
+    root: INFO
+    com.phumlanidev.notificationservice: DEBUG
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
