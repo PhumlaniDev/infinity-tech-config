@@ -4,9 +4,11 @@ server:
 spring:
   application:
     name: product-service
+
   config:
     activate:
       on-profile: dev
+
   datasource:
     url: jdbc:postgresql://localhost:5432/productdb
     username: "{cipher}2dbb4f8fb118abdff5534ba5bc8c8ed8cc1435a333a2958811a3f9713215d1ee"
@@ -19,6 +21,7 @@ spring:
       max-lifetime: 1800000      # 30 minutes
       connection-timeout: 10000  # 10 seconds max wait for a connection
       pool-name: DevHikariCP
+
   jpa:
     hibernate:
       ddl-auto: update
@@ -27,17 +30,20 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
+
   redis:
     host: localhost
     port: 6379
   cache:
     type: redis
+
   security:
     oauth2:
       resourceserver:
         jwt:
           issuer-uri: http://localhost:8080/realms/mac-apps
           jwk-uri: http://localhost:8080/realms/mac-apps/protocol/openid-connect/certs
+
 keycloak:
   resource: tech-hive-store
   principle-attribute: preferred_username
