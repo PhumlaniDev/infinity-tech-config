@@ -49,7 +49,7 @@ spring:
     host: smtp.gmail.com
     port: 587
     username: "{cipher}2d53a4f5c04bfa61ad47c5ac020e7850e65b1fb46c61be8367cb89d3aec5878ae7d6176dfc9cb8faec5056e87cccb536"
-    password: "{cipher}40d8da8dce3d20c5668004fa726087f18200b33c349fbe35f68ba09c9cf09074746f08083b7f2a9c484436bfaaf99e5d"
+    password: "{cipher}7a50853ecadefd68fc22d2da0bed630d8511fbffbb3c5d0401983fcead9bd5caba22ee99ff6b5623fb17ec96988d127a"
     properties:
       mail:
         smtp:
