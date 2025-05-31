@@ -53,6 +53,12 @@ spring:
           uri: lb://order-service
           predicates:
             - Path=/api/v1/order/**
+
+        # Notification service
+        - id: notification-service
+          uri: lb://notification-service
+          predicates:
+            - Path=/api/v1/notifications/**
 #          filters:
 #            - RewritePath=/api/v1/carts/(?<segment>.*), /carts/${segment}
             # Uncomment the following lines to enable rate limiting and response headers
