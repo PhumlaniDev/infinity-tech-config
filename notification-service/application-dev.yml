@@ -65,6 +65,9 @@ spring:
     mode: HTML
     cache: false
 
+keycloak:
+  resource: tech-hive-store
+  principle-attribute: preferred_username
 
 eureka:
   client:
