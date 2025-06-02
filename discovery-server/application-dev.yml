@@ -17,10 +17,11 @@ management:
   endpoints:
     web:
       exposure:
-        include: "*"
-  health:
-    discovery:
-      enabled: false
-    show-details: always
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
+      discovery:
+        enabled: false
 server:
   port: 8761
