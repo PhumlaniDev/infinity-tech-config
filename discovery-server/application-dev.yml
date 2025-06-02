@@ -1,12 +1,10 @@
-server:
-  port: 8761
-
 spring:
   application:
     name: discovery-server
   config:
     activate:
       on-profile: dev
+    fail-fast: true
 
 eureka:
   client:
@@ -14,3 +12,15 @@ eureka:
     fetch-registry: false
   server:
     enable-self-preservation: false
+    wait-time-in-ms-when-sync-empty: 0
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  health:
+    discovery:
+      enabled: false
+    show-details: always
+server:
+  port: 8761
