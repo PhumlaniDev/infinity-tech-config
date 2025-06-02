@@ -4,6 +4,9 @@ server:
 spring:
   application:
     name: discovery-server
+  config:
+    activate:
+      on-profile: dev
 
 eureka:
   client:
