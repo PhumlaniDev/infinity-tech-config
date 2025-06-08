@@ -1,0 +1,28 @@
+server:
+  port: 9600
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/paymentdb
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate.ddl-auto: update
+    show-sql: true
+
+keycloak:
+  realm: mac-apps
+  auth-server-url: http://localhost:8080
+  resource: tech-hive-store
+  principle-attribute: preferred_username
+  credentials:
+    secret: "{cipher}b95c0c56236b30fc32c8e1addeec3cc68295f0205ffc19bf798204e9d43d833e67ee3597c606fe95f1948f32d4cda9ce7931b008f41f2f5f8ddd3b2a12d32506"
+  admin:
+    username: "{cipher}1b1605dd29d70df25c643ed64a28779456c1453c2252432b3a77e77ae35935d0"
+    password: "{cipher}9691f299e5d13785d56be58db20a811fbea1b1b8469c6d0b7dfb2040be6eac09"
+
+stripe:
+  secret-key: "{cipher}34a2d6c72c4f48d0ad38d02ff5772f9a97c901ef075ab1ff95cf9c4314264c68e7b8f4f5be8597179e07d1a2831bacdd464735546216da2105fd34c7f63cfe125927a532f10ea4d3bb5687a9a2b255dd74571f682a2b3068c7a3bdbc932e887381967751d75cf357674100ec9f639a4c97942c7faf840b0cb46404666564bdd4"
+  public-key: "{cipher}5b8409ba7d928bcc3144f49d5761e0047c99509cb3670253fc7d622b763cd52c4f2f5a7c6fcb2c0e1f94e9dfb53620c47e8d12ec143939df74e0a1d62a14c8dbbf447c47a922f08af10538937a1a39a272870dcffc1239b0bcd99ab01012e4090b06a538595ee519c43e25bc8f377add643c69d4e4dc7abe9b69833967924d26"
+  success-url: https://your-frontend.com/payment/success
+  cancel-url: https://your-frontend.com/payment/cancel
