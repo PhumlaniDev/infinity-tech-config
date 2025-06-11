@@ -62,17 +62,20 @@ spring:
           uri: lb://notification-service
           predicates:
             - Path=/api/v1/notifications/**
-#          filters:
-#            - RewritePath=/api/v1/carts/(?<segment>.*), /carts/${segment}
-            # Uncomment the following lines to enable rate limiting and response headers
-#      default-filters:
-#        - name: RequestRateLimiter
-#          args:
-#            redis-rate-limiter.replenish-rate: 10
-#            redis-rate-limiter.burst-capacity: 20
-#            redis-rate-limiter.requestedTokens: 1
-#        - AddResponseHeader=X-Gateway-Response, Passed-through-API-Gateway
-#        - AddRequestHeader=X-Response-Time, ${#t(java.time.Instant).now().toString()}
+
+        # Payment service
+        - id: payment-service
+          uri: lb://payment-service
+          predicates:
+            - Path=/api/v1/payments/checkout
+            - Method=POST
+          filter:
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenish-rate: 10
+                redis-rate-limiter.burst-capacity: 20
+                redis-rate-limiter.requestedTokens: 1
+                key-resolver: "#{@ipKeyResolver}"
     config:
       uri: http://localhost:8888
 
