@@ -7,8 +7,6 @@ spring:
   config:
     activate:
       on-profile: dev
-    uri: http://localhost:8888
-    name: eureka-server
     fail-fast: true
     retry:
       max-attempts: 6

@@ -15,6 +15,11 @@ spring:
     hibernate.ddl-auto: update
     show-sql: true
 
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
 keycloak:
   realm: mac-apps
   auth-server-url: http://localhost:8080
@@ -31,3 +36,17 @@ stripe:
   public-key: "{cipher}5b8409ba7d928bcc3144f49d5761e0047c99509cb3670253fc7d622b763cd52c4f2f5a7c6fcb2c0e1f94e9dfb53620c47e8d12ec143939df74e0a1d62a14c8dbbf447c47a922f08af10538937a1a39a272870dcffc1239b0bcd99ab01012e4090b06a538595ee519c43e25bc8f377add643c69d4e4dc7abe9b69833967924d26"
   success-url: http://localhost:9600/payment/success
   cancel-url: http://localhost:9600/payment/cancel
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
