@@ -42,6 +42,9 @@ keycloak:
   resource: tech-hive-store
   principle-attribute: preferred_username
 
+stripe:
+  webhook-secret: "{cipher}31c41e3bbe21203330b4b33f3153feefc0a92186d82ebb223c1e481bc482a971320f5b5ac2d612c35a045054b4740f5dfd12b99a9acbac57b17f1c502e9a1cefd9e2a6357f3dd75b7fd186256ebab1f402c357e051bd993b3376fc73081d7ac0"
+
 eureka:
   client:
     service-url:
