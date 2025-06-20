@@ -11,14 +11,30 @@ spring:
     url: jdbc:postgresql://localhost:5432/paymentdb
     username: postgres
     password: postgres
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 5       # Keep low to avoid exhausting local DB connections
+      minimum-idle: 2            # Few idle connections are enough
+      idle-timeout: 30000        # 30 sec before closing idle connections
+      max-lifetime: 1800000      # 30 minutes
+      connection-timeout: 10000  # 10 seconds max wait for a connection
+      pool-name: DevHikariCP
   jpa:
     hibernate.ddl-auto: update
     show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  sql:
+    init:
+      mode: always
   security:
     oauth2:
       resourceserver:
         jwt:
           issuer-uri: http://localhost:8080/realms/mac-apps
+          jwk-uri: http://localhost:8080/realms/mac-apps/protocol/openid-connect/certs
 
 eureka:
   client:
