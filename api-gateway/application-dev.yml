@@ -89,8 +89,8 @@ spring:
         - id: payment-service
           uri: lb://payment-service
           predicates:
-            - Path=/api/v1/payments/checkout
-            - Path=/api/v1/stripe/webhook
+            - Path=/api/v1/payments/**
+            - Path=/api/v1/stripe/**
             - Method=POST
           filter:
             - name: RequestRateLimiter
