@@ -90,8 +90,12 @@ spring:
           uri: lb://payment-service
           predicates:
             - Path=/api/v1/payments/**
+
+        # Stripe Webhook
+        - id: stripe-webhook
+          uri: lb://payment-service
+          predicates:
             - Path=/api/v1/stripe/**
-            - Method=POST
           filter:
             - name: RequestRateLimiter
               args:
