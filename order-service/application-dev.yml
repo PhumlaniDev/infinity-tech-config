@@ -58,3 +58,7 @@ management:
   endpoint:
     health:
       show-details: always
+
+logging:
+  level:
+    com.phumlanidev.orderservice: DEBUG
