@@ -36,11 +36,18 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8080/realms/mac-apps
-          jwk-uri: http://localhost:8080/realms/mac-apps/protocol/openid-connect/certs
+          issuer-uri: http://localhost:8080/realms/ecommerce
+          jwk-uri: http://localhost:8080/realms/ecommerce/protocol/openid-connect/certs
 keycloak:
-  resource: tech-hive-store
+  auth-server-url: http://localhost:8080
+  realm: ecommerce
+  resource: order-service
   principle-attribute: preferred_username
+  credentials:
+    secret: "{cipher}1591796e6c5430b69c64f1d4809d92be06712373739e4069c4abe1affe61f2ee6c2b2c177261d2198fc85f91e8a940fa9285a84dc503d6658f6dbc299d8a336a"
+  admin:
+    username: "{cipher}1b1605dd29d70df25c643ed64a28779456c1453c2252432b3a77e77ae35935d0"
+    password: "{cipher}9691f299e5d13785d56be58db20a811fbea1b1b8469c6d0b7dfb2040be6eac09"
 
 stripe:
   webhook-secret: "{cipher}31c41e3bbe21203330b4b33f3153feefc0a92186d82ebb223c1e481bc482a971320f5b5ac2d612c35a045054b4740f5dfd12b99a9acbac57b17f1c502e9a1cefd9e2a6357f3dd75b7fd186256ebab1f402c357e051bd993b3376fc73081d7ac0"

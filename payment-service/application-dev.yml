@@ -33,8 +33,8 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8080/realms/mac-apps
-          jwk-uri: http://localhost:8080/realms/mac-apps/protocol/openid-connect/certs
+          issuer-uri: http://localhost:8080/realms/ecommerce
+          jwk-uri: http://localhost:8080/realms/ecommerce/protocol/openid-connect/certs
 
 eureka:
   client:
@@ -42,12 +42,12 @@ eureka:
       defaultZone: http://localhost:8761/eureka
 
 keycloak:
-  realm: mac-apps
   auth-server-url: http://localhost:8080
-  resource: tech-hive-store
+  realm: ecommerce
+  resource: payment-service
   principle-attribute: preferred_username
   credentials:
-    secret: "{cipher}b95c0c56236b30fc32c8e1addeec3cc68295f0205ffc19bf798204e9d43d833e67ee3597c606fe95f1948f32d4cda9ce7931b008f41f2f5f8ddd3b2a12d32506"
+    secret: "{cipher}bae3f86488c175fe9d6291387f16598302954c90560242e0a3d246f5813ecb1a35db86cfe5fe3a5889d21e1037123307c78664d8ace54cfced6c6e776115880f"
   admin:
     username: "{cipher}1b1605dd29d70df25c643ed64a28779456c1453c2252432b3a77e77ae35935d0"
     password: "{cipher}9691f299e5d13785d56be58db20a811fbea1b1b8469c6d0b7dfb2040be6eac09"

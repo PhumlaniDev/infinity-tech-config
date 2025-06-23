@@ -42,8 +42,8 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8080/realms/mac-apps
-          jwk-uri: http://localhost:8080/realms/mac-apps/protocol/openid-connect/certs
+          issuer-uri: http://localhost:8080/realms/ecommerce
+          jwk-uri: http://localhost:8080/realms/ecommerce/protocol/openid-connect/certs
 
   mail:
     host: smtp.gmail.com
@@ -67,8 +67,15 @@ spring:
     cache: false
 
 keycloak:
-  resource: tech-hive-store
+  auth-server-url: http://localhost:8080
+  realm: ecommerce
+  resource: notification-service
   principle-attribute: preferred_username
+  credentials:
+    secret: "{cipher}49e91fb763b85ee60d41255a140c37e759024eed116608690c159dc0fc4c4072f50edbb4906c6794c51be095a3d5f09000e7f36330834ab37e06c5dd170eb0e1"
+  admin:
+    username: "{cipher}1b1605dd29d70df25c643ed64a28779456c1453c2252432b3a77e77ae35935d0"
+    password: "{cipher}9691f299e5d13785d56be58db20a811fbea1b1b8469c6d0b7dfb2040be6eac09"
 
 eureka:
   client:
