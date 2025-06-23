@@ -116,18 +116,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8080/realms/mac-apps
-
-keycloak:
-  auth-server-url: http://localhost:8080
-  realm: mac-apps
-  resource: tech-hive-store
-  principle-attribute: preferred_username
-  credentials:
-    secret: "{cipher}b95c0c56236b30fc32c8e1addeec3cc68295f0205ffc19bf798204e9d43d833e67ee3597c606fe95f1948f32d4cda9ce7931b008f41f2f5f8ddd3b2a12d32506"
-  admin:
-    username: "{cipher}1b1605dd29d70df25c643ed64a28779456c1453c2252432b3a77e77ae35935d0"
-    password: "{cipher}9691f299e5d13785d56be58db20a811fbea1b1b8469c6d0b7dfb2040be6eac09"
+          issuer-uri: http://localhost:8080/realms/ecommerce
 
 eureka:
   client:
