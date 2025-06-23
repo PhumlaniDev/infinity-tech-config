@@ -44,6 +44,8 @@ spring:
               - DELETE
               - OPTIONS
             allowedHeader: "*"
+      default-filters:
+        - AddRequestHeader=Authorization, #{Authorization}
       discovery:
         locator:
           enabled: true
