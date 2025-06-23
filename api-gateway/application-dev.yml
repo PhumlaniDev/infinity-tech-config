@@ -78,12 +78,16 @@ spring:
           uri: lb://order-service
           predicates:
             - Path=/api/v1/order/**
+          filters:
+            - RemoveRequestHeader=Cookie
 
         # Notification service
         - id: notification-service
           uri: lb://notification-service
           predicates:
             - Path=/api/v1/notifications/**
+          filters:
+            - RemoveRequestHeader=Cookie
 
         # Payment service
         - id: payment-service
