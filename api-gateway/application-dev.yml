@@ -44,8 +44,6 @@ spring:
               - DELETE
               - OPTIONS
             allowedHeader: "*"
-      default-filters:
-        - AddRequestHeader=Authorization, #{Authorization}
       discovery:
         locator:
           enabled: true
@@ -102,7 +100,7 @@ spring:
           uri: lb://payment-service
           predicates:
             - Path=/api/v1/stripe/**
-          filter:
+          filters:
             - name: RequestRateLimiter
               args:
                 redis-rate-limiter.replenish-rate: 10
