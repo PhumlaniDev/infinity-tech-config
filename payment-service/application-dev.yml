@@ -59,11 +59,6 @@ stripe:
   success-url: http://localhost:9600/payment/success
   cancel-url: http://localhost:9600/payment/cancel
 
-logging:
-  level:
-    org.hibernate.SQL: DEBUG
-    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
-
 management:
   endpoints:
     web:
@@ -72,3 +67,12 @@ management:
   endpoint:
     health:
       show-details: always
+
+logging:
+  level:
+    com.phumlanidev.paymentservice: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.springframework.web: DEBUG
+    org.springframework.http.converter.json: DEBUG
+    org.springframework.validation: DEBUG

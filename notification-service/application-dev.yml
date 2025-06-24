@@ -82,11 +82,6 @@ eureka:
     service-url:
       defaultZone: http://localhost:8761/eureka
 
-logging:
-  level:
-    org.hibernate.SQL: DEBUG
-    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
-
 management:
   endpoints:
     web:
@@ -95,3 +90,12 @@ management:
   endpoint:
     health:
       show-details: always
+
+logging:
+  level:
+    com.phumlanidev.notificationservice: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.springframework.web: DEBUG
+    org.springframework.http.converter.json: DEBUG
+    org.springframework.validation: DEBUG
