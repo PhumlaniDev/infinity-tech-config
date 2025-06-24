@@ -71,3 +71,12 @@ management:
   endpoint:
     health:
       show-details: always
+
+logging:
+  level:
+    com.phumlanidev.authservice: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.springframework.web: DEBUG
+    org.springframework.http.converter.json: DEBUG
+    org.springframework.validation: DEBUG
