@@ -9,8 +9,8 @@ spring:
       on-profile: docker
   datasource:
     url: jdbc:postgresql://postgres-cart:5432/cartdb
-    username: "{cipher}2dbb4f8fb118abdff5534ba5bc8c8ed8cc1435a333a2958811a3f9713215d1ee"
-    password: "{cipher}2dbb4f8fb118abdff5534ba5bc8c8ed8cc1435a333a2958811a3f9713215d1ee"
+    username: postgres
+    password: postgres
     driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 5       # Keep low to avoid exhausting local DB connections
