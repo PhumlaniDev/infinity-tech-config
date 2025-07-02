@@ -30,7 +30,7 @@ spring:
       locations: classpath:db/migration
   data:
     redis:
-      host: localhost
+      host: redis-rate-limiter
       port: 6379
   cloud:
     gateway:
