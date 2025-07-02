@@ -1,0 +1,78 @@
+server:
+  port: 9600
+
+spring:
+  application:
+    name: payment-service
+  config:
+    activate:
+      on-profile: docker
+  datasource:
+    url: jdbc:postgresql://postgres-paymentkeycloak:5432/paymentdb
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 5       # Keep low to avoid exhausting local DB connections
+      minimum-idle: 2            # Few idle connections are enough
+      idle-timeout: 30000        # 30 sec before closing idle connections
+      max-lifetime: 1800000      # 30 minutes
+      connection-timeout: 10000  # 10 seconds max wait for a connection
+      pool-name: DevHikariCP
+  jpa:
+    hibernate.ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  sql:
+    init:
+      mode: always
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://keycloak:8080/realms/ecommerce
+          jwk-uri: http://keycloak:8080/realms/ecommerce/protocol/openid-connect/certs
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-server:8761/eureka
+
+keycloak:
+  auth-server-url: http://keycloak:8080
+  realm: ecommerce
+  resource: payment-service
+  principle-attribute: preferred_username
+  credentials:
+    secret: "{cipher}bae3f86488c175fe9d6291387f16598302954c90560242e0a3d246f5813ecb1a35db86cfe5fe3a5889d21e1037123307c78664d8ace54cfced6c6e776115880f"
+  admin:
+    username: "{cipher}1b1605dd29d70df25c643ed64a28779456c1453c2252432b3a77e77ae35935d0"
+    password: "{cipher}9691f299e5d13785d56be58db20a811fbea1b1b8469c6d0b7dfb2040be6eac09"
+
+stripe:
+  secret-key: "{cipher}34a2d6c72c4f48d0ad38d02ff5772f9a97c901ef075ab1ff95cf9c4314264c68e7b8f4f5be8597179e07d1a2831bacdd464735546216da2105fd34c7f63cfe125927a532f10ea4d3bb5687a9a2b255dd74571f682a2b3068c7a3bdbc932e887381967751d75cf357674100ec9f639a4c97942c7faf840b0cb46404666564bdd4"
+  public-key: "{cipher}5b8409ba7d928bcc3144f49d5761e0047c99509cb3670253fc7d622b763cd52c4f2f5a7c6fcb2c0e1f94e9dfb53620c47e8d12ec143939df74e0a1d62a14c8dbbf447c47a922f08af10538937a1a39a272870dcffc1239b0bcd99ab01012e4090b06a538595ee519c43e25bc8f377add643c69d4e4dc7abe9b69833967924d26"
+  webhook-secret: "{cipher}41d36433cf526d44c91662cb96269b283cd66b4621db7c933c2ed51435233847fcd55ea6fe7c13f1779e2b8e434f6369c7d12ae95bb434903a4dc88544c70decd9b4f669ea7d2635d5994968aa6ea32a99667d6ee81d20fb376022cf95025f08"
+  success-url: http://localhost:9600/payment/success
+  cancel-url: http://localhost:9600/payment/cancel
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    com.phumlanidev.paymentservice: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    #    org.springframework.web: DEBUG
+    org.springframework.http.converter.json: DEBUG
+    org.springframework.validation: DEBUG

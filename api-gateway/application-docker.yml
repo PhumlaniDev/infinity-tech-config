@@ -1,0 +1,159 @@
+server:
+  port: 8085
+
+spring:
+  application:
+    name: api-gateway
+  config:
+    activate:
+      on-profile: dev
+  main:
+    web-application-type: reactive
+  datasource:
+    url: jdbc:postgresql://postgres-api-gateway:5432/gateway_db
+    username: "{cipher}2dbb4f8fb118abdff5534ba5bc8c8ed8cc1435a333a2958811a3f9713215d1ee"
+    password: "{cipher}2dbb4f8fb118abdff5534ba5bc8c8ed8cc1435a333a2958811a3f9713215d1ee"
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 5       # Keep low to avoid exhausting local DB connections
+      minimum-idle: 2            # Few idle connections are enough
+      idle-timeout: 30000        # 30 sec before closing idle connections
+      max-lifetime: 1800000      # 30 minutes
+      connection-timeout: 10000  # 10 seconds max wait for a connection
+      pool-name: DevHikariCP
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    flyway:
+      enabled: true
+      locations: classpath:db/migration
+  data:
+    redis:
+      host: localhost
+      port: 6379
+  cloud:
+    gateway:
+      server:
+        webflux:
+          globalcors:
+            corsConfigurations:
+              '[/**]':
+                allowedOrigins: "http://localhost:3000"
+                allowedMethods:
+                  - GET
+                  - POST
+                  - PUT
+                  - DELETE
+                  - OPTIONS
+                allowedHeader: "*"
+            default-filters:
+              - name: RequestRateLimiter
+                args:
+                  redis-rate-limiter.replenish-rate: 5
+                  redis-rate-limiter.burst-capacity: 10
+                  redis-rate-limiter.requestedTokens: 1
+                  key-resolver: "#{@ipKeyResolver}"
+          discovery:
+            locator:
+              enabled: true
+              lower-case-service-id: true
+          routes:
+            - id: auth-service
+              uri: lb://auth-service
+              predicates:
+                - Path=/api/v1/auth/**
+
+            # ✅ Public GETs
+            - id: product-service-public
+              uri: lb://product-service
+              predicates:
+                - Path=/api/v1/products/all
+                - Path=/api/v1/products/*/price
+
+            # 🔐 Secured write routes
+            - id: product-service-secured
+              uri: lb://product-service
+              predicates:
+                - Path=/api/v1/products/**
+
+            # Cart service
+            - id: cart-service
+              uri: lb://cart-service
+              predicates:
+                - Path=/api/v1/cart/**
+
+            # Order service
+            - id: order-service
+              uri: lb://order-service
+              predicates:
+                - Path=/api/v1/order/**
+              filters:
+                - RemoveRequestHeader=Cookie
+
+            # Notification service
+            - id: notification-service
+              uri: lb://notification-service
+              predicates:
+                - Path=/api/v1/notifications/**
+              filters:
+                - RemoveRequestHeader=Cookie
+
+            # Payment service
+            - id: payment-service
+              uri: lb://payment-service
+              predicates:
+                - Path=/api/v1/payments/**
+                - Method=POST
+              filters:
+                - name: RequestRateLimiter
+                  args:
+                    key-resolver: "#{@userIdKeyResolver}"
+                    redis-rate-limiter.replenishRate: 5
+                    redis-rate-limiter.burstCapacity: 10
+            # Stripe Webhook
+            - id: stripe-webhook
+              uri: lb://payment-service
+              predicates:
+                - Path=/api/v1/stripe/**
+              filters:
+                - name: RequestRateLimiter
+                  args:
+                    redis-rate-limiter.replenish-rate: 10
+                    redis-rate-limiter.burst-capacity: 20
+                    redis-rate-limiter.requestedTokens: 1
+                    key-resolver: "#{@ipKeyResolver}"
+
+    config:
+      uri: http://localhost:8888
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/ecommerce
+keycloak:
+  principle-attribute: preferred_username
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    com.phumlanidev.apigateway: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.springframework.http.converter.json: DEBUG
+    org.springframework.validation: DEBUG
+    org.springframework.security: DEBUG
+    org.springframework.cloud.gateway: DEBUG

@@ -1,0 +1,101 @@
+server:
+  port: 9500
+
+spring:
+  application:
+    name: notification-service
+  config:
+    activate:
+      on-profile: docker
+  datasource:
+    url: jdbc:postgresql://postgres-notification:5432/notificationdb
+    username: "{cipher}2dbb4f8fb118abdff5534ba5bc8c8ed8cc1435a333a2958811a3f9713215d1ee"
+    password: "{cipher}2dbb4f8fb118abdff5534ba5bc8c8ed8cc1435a333a2958811a3f9713215d1ee"
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 5       # Keep low to avoid exhausting local DB connections
+      minimum-idle: 2            # Few idle connections are enough
+      idle-timeout: 30000        # 30 sec before closing idle connections
+      max-lifetime: 1800000      # 30 minutes
+      connection-timeout: 10000  # 10 seconds max wait for a connection
+      pool-name: DevHikariCP
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:db/schema.sql
+
+  flyway:
+    enabled: true
+    locations: classpath:/db/migration
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://keycloak:8080/realms/ecommerce
+          jwk-uri: http://keycloak:8080/realms/ecommerce/protocol/openid-connect/certs
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: "{cipher}2d53a4f5c04bfa61ad47c5ac020e7850e65b1fb46c61be8367cb89d3aec5878ae7d6176dfc9cb8faec5056e87cccb536"
+    password: "{cipher}258e2db4ea54ae4b0d8cdf88414854ac7e8f88b1eff50920d12a5e92fa2fa032d3563b711eb391952bf87259429424f7"
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+  cache:
+    type: caffeine
+
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML
+    cache: false
+
+keycloak:
+  auth-server-url: http://keycloak:8080
+  realm: ecommerce
+  resource: notification-service
+  principle-attribute: preferred_username
+  credentials:
+    secret: "{cipher}49e91fb763b85ee60d41255a140c37e759024eed116608690c159dc0fc4c4072f50edbb4906c6794c51be095a3d5f09000e7f36330834ab37e06c5dd170eb0e1"
+  admin:
+    username: "{cipher}1b1605dd29d70df25c643ed64a28779456c1453c2252432b3a77e77ae35935d0"
+    password: "{cipher}9691f299e5d13785d56be58db20a811fbea1b1b8469c6d0b7dfb2040be6eac09"
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-server:8761/eureka
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    com.phumlanidev.notificationservice: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    #    org.springframework.web: DEBUG
+    org.springframework.http.converter.json: DEBUG
+    org.springframework.validation: DEBUG

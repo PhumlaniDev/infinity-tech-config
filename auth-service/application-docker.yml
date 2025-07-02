@@ -1,0 +1,82 @@
+server:
+  port: 9100
+
+spring:
+  application:
+    name: auth-service
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    url: jdbc:postgresql://postgres-auth:5432/authdb
+    username: "{cipher}2dbb4f8fb118abdff5534ba5bc8c8ed8cc1435a333a2958811a3f9713215d1ee"
+    password: "{cipher}2dbb4f8fb118abdff5534ba5bc8c8ed8cc1435a333a2958811a3f9713215d1ee"
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 5       # Keep low to avoid exhausting local DB connections
+      minimum-idle: 2            # Few idle connections are enough
+      idle-timeout: 30000        # 30 sec before closing idle connections
+      max-lifetime: 1800000      # 30 minutes
+      connection-timeout: 10000  # 10 seconds max wait for a connection
+      pool-name: DevHikariCP
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/ecommerce
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: "{cipher}2d53a4f5c04bfa61ad47c5ac020e7850e65b1fb46c61be8367cb89d3aec5878ae7d6176dfc9cb8faec5056e87cccb536"
+    password: "{cipher}cf4c834689d8814a4c3942fd8e475f749adee978e026d3e802b309612d357b63d394082496df8474bf1dbc97ce2c7a4c079248969f7523def3096726610bb705e6a4c5e3c6a4792ae568508e7461d6b0dd14dc20c79671767cbf3b01f8ed81d3"
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  cache:
+    type: caffeine
+
+keycloak:
+  auth-server-url: http://localhost:8080
+  realm: ecommerce
+  resource: auth-service
+  principle-attribute: preferred_username
+  credentials:
+    secret: "{cipher}c94196dc4fa11c1cd3abc6574e1a352858fb428fed68032d8ea2e1aa5fa089a7262e8536c30aec0ed38c9f2d860e8a96036cbe9786bc283ef729e4fc08d289e2"
+  admin:
+    username: "{cipher}1b1605dd29d70df25c643ed64a28779456c1453c2252432b3a77e77ae35935d0"
+    password: "{cipher}9691f299e5d13785d56be58db20a811fbea1b1b8469c6d0b7dfb2040be6eac09"
+  logout_uri: http://localhost:8080/realms/ecommerce/protocol/openid-connect/logout
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    com.phumlanidev.authservice: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    #    org.springframework.web: DEBUG
+    org.springframework.http.converter.json: DEBUG
+    org.springframework.validation: DEBUG
