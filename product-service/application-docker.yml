@@ -61,6 +61,18 @@ keycloak:
     username: "{cipher}1b1605dd29d70df25c643ed64a28779456c1453c2252432b3a77e77ae35935d0"
     password: "{cipher}9691f299e5d13785d56be58db20a811fbea1b1b8469c6d0b7dfb2040be6eac09"
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+    tags:
+      enabled: true
+
 logging:
   level:
     com.phumlanidev.productservice: DEBUG
@@ -69,12 +81,5 @@ logging:
     org.springframework.http.converter.json: DEBUG
     org.springframework.validation: DEBUG
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health,info
-  endpoint:
-    health:
-      show-details: always
+
 
