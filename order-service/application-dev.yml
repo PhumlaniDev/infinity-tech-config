@@ -61,10 +61,11 @@ management:
   endpoints:
     web:
       exposure:
-        include: health, info, prometheus
-  endpoint:
-    prometheus:
-      enabled: true
+        include: *
+  metrics:
+    export:
+      prometheus:
+        enabled: true
 
 logging:
   level:
