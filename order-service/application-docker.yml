@@ -58,13 +58,13 @@ eureka:
       defaultZone: http://eureka-server:8761/eureka
 
 management:
+  endpoint:
+    prometheus:
+      enabled: true
   endpoints:
     web:
       exposure:
-        include: "*"
-    endpoint:
-      prometheus:
-        enabled: true
+        include: "health,info,prometheus"
   metrics:
     export:
       prometheus:
@@ -75,6 +75,6 @@ logging:
     com.phumlanidev.orderservice: DEBUG
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
-    #    org.springframework.web: DEBUG
+    org.springframework.boot.context.config: DEBUG
     org.springframework.http.converter.json: DEBUG
     org.springframework.validation: DEBUG
