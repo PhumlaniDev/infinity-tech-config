@@ -146,7 +146,10 @@ management:
         include: health, info, prometheus
   endpoint:
     prometheus:
-      enabled: true
+      access: "web"
+  metrics:
+    tags:
+      application: order-service
 
 logging:
   level:
