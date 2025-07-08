@@ -58,19 +58,27 @@ eureka:
       defaultZone: http://eureka-server:8761/eureka
 
 management:
-  server:
-    port: 9300
-#    address: 0.0.0.0
   endpoints:
     web:
       exposure:
-        include: health, prometheus, metrics
+        include: "*"
+  health:
+    readiness-state:
+      enabled: true
+    liveness-state:
+      enabled: true
   endpoint:
-    prometheus:
+    shutdown:
+      access: unrestricted
+    health:
+      probes:
+        enabled: true
+  info:
+    env:
       enabled: true
   metrics:
     tags:
-      application: order-service
+      application: ${spring.application.name}
 
 logging:
   level:
