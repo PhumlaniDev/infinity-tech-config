@@ -58,6 +58,9 @@ spring:
             locator:
               enabled: true
               lower-case-service-id: true
+          httpclient:
+            connect-timeout: 1000
+            response-timeout: 10s
           routes:
             - id: auth-service
               uri: lb://auth-service
@@ -143,13 +146,24 @@ management:
   endpoints:
     web:
       exposure:
-        include: health, info, prometheus
+        include: "*"
+  health:
+    readiness-state:
+      enabled: true
+    liveness-state:
+      enabled: true
   endpoint:
-    prometheus:
+    shutdown:
+      access: unrestricted
+    health:
+      probes:
+        enabled: true
+  info:
+    env:
       enabled: true
   metrics:
     tags:
-      application: api-gateway
+      application: ${spring.application.name}
 
 logging:
   level:
