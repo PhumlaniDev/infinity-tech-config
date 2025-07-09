@@ -45,30 +45,30 @@ spring:
           issuer-uri: http://keycloak:8080/realms/ecommerce
           jwk-uri: http://keycloak:8080/realms/ecommerce/protocol/openid-connect/certs
 
-  mail:
-    host: live.smtp.mailtrap.io
-    port: 587
-    username: api
-    password: "{cipher}d186fe72ad82339e7a96f878230ac88e281c454aa40d547deadb793bcb5b39b0b3f3f8d2ab62571c916f63ce313e555329525f3150b74b812851674df3e0f490"
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
-
-# Gmail configuration (uncomment if needed)
 #  mail:
-#    host: smtp.gmail.com
+#    host: live.smtp.mailtrap.io
 #    port: 587
-#    username: "{cipher}2d53a4f5c04bfa61ad47c5ac020e7850e65b1fb46c61be8367cb89d3aec5878ae7d6176dfc9cb8faec5056e87cccb536"
-#    password: "{cipher}258e2db4ea54ae4b0d8cdf88414854ac7e8f88b1eff50920d12a5e92fa2fa032d3563b711eb391952bf87259429424f7"
+#    username: api
+#    password: "{cipher}d186fe72ad82339e7a96f878230ac88e281c454aa40d547deadb793bcb5b39b0b3f3f8d2ab62571c916f63ce313e555329525f3150b74b812851674df3e0f490"
 #    properties:
 #      mail:
 #        smtp:
 #          auth: true
 #          starttls:
 #            enable: true
+
+# Gmail configuration (uncomment if needed)
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: "{cipher}2d53a4f5c04bfa61ad47c5ac020e7850e65b1fb46c61be8367cb89d3aec5878ae7d6176dfc9cb8faec5056e87cccb536"
+    password: "{cipher}258e2db4ea54ae4b0d8cdf88414854ac7e8f88b1eff50920d12a5e92fa2fa032d3563b711eb391952bf87259429424f7"
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 
   cache:
     type: caffeine
