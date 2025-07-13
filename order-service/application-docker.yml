@@ -52,6 +52,40 @@ keycloak:
 stripe:
   webhook-secret: "{cipher}31c41e3bbe21203330b4b33f3153feefc0a92186d82ebb223c1e481bc482a971320f5b5ac2d612c35a045054b4740f5dfd12b99a9acbac57b17f1c502e9a1cefd9e2a6357f3dd75b7fd186256ebab1f402c357e051bd993b3376fc73081d7ac0"
 
+resilience4j:
+  circuitbreaker:
+    instances:
+      paymentService:
+        registerHealthIndicator: true
+        slidingWindowSize: 5
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10s
+        permittedNumberOfCallsInHalfOpenState: 3
+
+  bulkhead:
+    instances:
+      paymentService:
+        maxConcurrentCalls: 10
+        maxWaitDuration: 0
+
+  retry:
+    instances:
+      paymentService:
+        maxAttempts: 3
+        waitDuration: 2s
+
+  ratelimiter:
+    instances:
+      paymentService:
+        limitForPeriod: 10
+        limitRefreshPeriod: 1s
+        timeoutDuration: 0
+
+  timelimiter:
+    instances:
+      paymentService:
+        timeoutDuration: 3s
+
 eureka:
   client:
     service-url:
