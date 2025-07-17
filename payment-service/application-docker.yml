@@ -36,6 +36,58 @@ spring:
           issuer-uri: http://keycloak:8080/realms/ecommerce
           jwk-uri: http://keycloak:8080/realms/ecommerce/protocol/openid-connect/certs
 
+resilience4j:
+  circuitbreaker:
+    instances:
+      orderService:
+        registerHealthIndicator: true
+        slidingWindowSize: 5
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10s
+        permittedNumberOfCallsInHalfOpenState: 3
+      notificationService:
+        registerHealthIndicator: true
+        slidingWindowSize: 5
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10s
+        permittedNumberOfCallsInHalfOpenState: 3
+
+  bulkhead:
+    instances:
+      orderService:
+        maxConcurrentCalls: 10
+        maxWaitDuration: 0
+      notificationService:
+        maxConcurrentCalls: 10
+        maxWaitDuration: 0
+
+  retry:
+    instances:
+      orderService:
+        maxAttempts: 3
+        waitDuration: 2s
+      notificationService:
+        maxAttempts: 3
+        waitDuration: 2s
+
+  ratelimiter:
+    instances:
+      orderService:
+        limitForPeriod: 10
+        limitRefreshPeriod: 1s
+        timeoutDuration: 0
+      notificationService:
+        limitForPeriod: 10
+        limitRefreshPeriod: 1s
+        timeoutDuration: 0
+
+  timelimiter:
+    instances:
+      orderService:
+        timeoutDuration: 3s
+      notificationService:
+        timeoutDuration: 3s
+
 eureka:
   client:
     service-url:

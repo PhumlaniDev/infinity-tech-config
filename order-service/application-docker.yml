@@ -55,7 +55,7 @@ stripe:
 resilience4j:
   circuitbreaker:
     instances:
-      paymentService:
+      notificationService:
         registerHealthIndicator: true
         slidingWindowSize: 5
         failureRateThreshold: 50
@@ -64,26 +64,26 @@ resilience4j:
 
   bulkhead:
     instances:
-      paymentService:
+      notificationService:
         maxConcurrentCalls: 10
         maxWaitDuration: 0
 
   retry:
     instances:
-      paymentService:
+      notificationService:
         maxAttempts: 3
         waitDuration: 2s
 
   ratelimiter:
     instances:
-      paymentService:
+      notificationService:
         limitForPeriod: 10
         limitRefreshPeriod: 1s
         timeoutDuration: 0
 
   timelimiter:
     instances:
-      paymentService:
+      notificationService:
         timeoutDuration: 3s
 
 eureka:
