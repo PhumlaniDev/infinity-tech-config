@@ -11,7 +11,7 @@ spring:
     stream:
       bindings:
         reserveStock-in-0:
-          destination: order-placed-topic
+          destination: order.placed.queue
           group: inventory-group
         stockReserved-out-0:
           destination: stock.reserved
