@@ -12,7 +12,7 @@ spring:
       stream:
         bindings:
           reserveStock-in-0:
-            destination: order.placed
+            destination: order-placed-topic
             group: inventory-group
           stockReserved-out-0:
             destination: stock.reserved
