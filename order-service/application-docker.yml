@@ -7,6 +7,19 @@ spring:
   config:
     activate:
       on-profile: docker
+  cloud:
+#    messaging-driven RabbitMQ
+    stream:
+      defaultBinder: rabbit
+      bindings:
+        orderPlaced-out-0:
+          destination: order.placed.queue
+          content-type: application/json
+      rabbit:
+        bindings:
+          orderPlaced-out-0:
+            producer:
+              exchange-type: fanout
   datasource:
     url: jdbc:postgresql://postgres-order:5432/orderdb
     username: postgres

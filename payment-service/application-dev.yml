@@ -7,6 +7,18 @@ spring:
   config:
     activate:
       on-profile: dev
+  cloud:
+    stream:
+      defaultBinder: rabbit
+      bindings:
+        paymentCompleted-out-0:
+          destination: payment.completed.queue
+          content-type: application/json
+      rabbit:
+        bindings:
+          paymentCompleted-out-0:
+            producer:
+              exchange-type: fanout
   datasource:
     url: jdbc:postgresql://localhost:5432/paymentdb
     username: postgres

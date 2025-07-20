@@ -7,6 +7,25 @@ spring:
   config:
     activate:
       on-profile: dev
+  cloud:
+    cloud:
+      stream:
+        bindings:
+          reserveStock-in-0:
+            destination: order.placed
+            group: inventory-group
+          stockReserved-out-0:
+            destination: stock.reserved
+          stockReservationFailed-out-0:
+            destination: stock.failed
+
+        defaultBinder: rabbit
+        rabbit:
+          bindings:
+            reserveStock-in-0:
+              consumer:
+                autoBindDlq: true
+                requeueRejected: false
   datasource:
     url: jdbc:postgresql://localhost:5432/inventorydb
     username: postgres

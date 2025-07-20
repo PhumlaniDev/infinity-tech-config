@@ -7,6 +7,61 @@ spring:
   config:
     activate:
       on-profile: dev
+  cloud:
+    stream:
+      defaultBinder: rabbit
+      bindings:
+        # 🎯 Outbound: Send OrderPlacedEvent to inventory-service
+        orderPlaced-out-0:
+          destination: order.placed.queue
+          content-type: application/json
+
+        # ✅ Inbound: Listen for stock reservation success
+        handleStockReserved-in-0:
+          destination: stock.reserved
+          group: order-service
+
+        # ❌ Inbound: Listen for stock reservation failure
+        handleStockReservationFailed-in-0:
+          destination: stock.failed
+          group: order-service
+
+        # ➕ Outbound to payment-service
+        paymentRequest-out-0:
+          destination: payment.request
+          content-type: application/json
+
+        # ➕ Outbound to notification-service
+        orderFailedNotification-out-0:
+          destination: order.failed.notification
+          content-type: application/json
+
+      rabbit:
+        bindings:
+          # 🔁 Outbound: Order placed
+          orderPlaced-out-0:
+            producer:
+              exchange-type: fanout
+
+          # ✅ Inbound: Success event from inventory
+          handleStockReserved-in-0:
+            consumer:
+              autoBindDlq: true
+              requeueRejected: false
+
+          # ❌ Inbound: Failure event from inventory
+          handleStockReservationFailed-in-0:
+            consumer:
+              autoBindDlq: true
+              requeueRejected: false
+
+          paymentRequest-out-0:
+            producer:
+              exchange-type: fanout
+
+          orderFailedNotification-out-0:
+            producer:
+              exchange-type: fanout
   datasource:
     url: jdbc:postgresql://localhost:5432/orderdb
     username: "{cipher}2dbb4f8fb118abdff5534ba5bc8c8ed8cc1435a333a2958811a3f9713215d1ee"
