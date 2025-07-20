@@ -8,24 +8,28 @@ spring:
     activate:
       on-profile: dev
   cloud:
-    cloud:
-      stream:
+    stream:
+      defaultBinder: rabbit
+      bindings:
+        # ✅ Consumer of order placed
+        reserveStock-in-0:
+          destination: order.placed.queue
+          group: inventory-group
+
+        # ✅ Stock reservation success response
+        stockReserved-out-0:
+          destination: stock.reserved
+
+        # ❌ Stock reservation failure response
+        stockReservationFailed-out-0:
+          destination: stock.failed
+
+      rabbit:
         bindings:
           reserveStock-in-0:
-            destination: order.placed.queue
-            group: inventory-group
-          stockReserved-out-0:
-            destination: stock.reserved
-          stockReservationFailed-out-0:
-            destination: stock.failed
-
-        defaultBinder: rabbit
-        rabbit:
-          bindings:
-            reserveStock-in-0:
-              consumer:
-                autoBindDlq: true
-                requeueRejected: false
+            consumer:
+              autoBindDlq: true
+              requeueRejected: false
   datasource:
     url: jdbc:postgresql://localhost:5432/inventorydb
     username: postgres

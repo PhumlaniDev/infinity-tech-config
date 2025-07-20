@@ -11,45 +11,51 @@ spring:
     stream:
       defaultBinder: rabbit
       bindings:
-        # 🎯 Outbound: Send OrderPlacedEvent to inventory-service
+        # 1️⃣ Outbound to RabbitMQ
         orderPlaced-out-0:
           destination: order.placed.queue
           content-type: application/json
-        # ✅ Inbound: Listen for stock reservation success
+
+        # 2️⃣ Inbound from inventory-service (success)
         handleStockReserved-in-0:
           destination: stock.reserved
           group: order-service
-        # ❌ Inbound: Listen for stock reservation failure
+
+        # 3️⃣ Inbound from inventory-service (failure)
         handleStockReservationFailed-in-0:
           destination: stock.failed
           group: order-service
-        # ➕ Outbound to payment-service
+
+        # 4️⃣ Outbound to payment-service
         paymentRequest-out-0:
           destination: payment.request
           content-type: application/json
-        # ➕ Outbound to notification-service
+
+        # 5️⃣ Outbound to notification-service (optional fallback)
         orderFailedNotification-out-0:
           destination: order.failed.notification
           content-type: application/json
+
       rabbit:
         bindings:
-          # 🔁 Outbound: Order placed
           orderPlaced-out-0:
             producer:
               exchange-type: fanout
-          # ✅ Inbound: Success event from inventory
+
           handleStockReserved-in-0:
             consumer:
               autoBindDlq: true
               requeueRejected: false
-          # ❌ Inbound: Failure event from inventory
+
           handleStockReservationFailed-in-0:
             consumer:
               autoBindDlq: true
               requeueRejected: false
+
           paymentRequest-out-0:
             producer:
               exchange-type: fanout
+
           orderFailedNotification-out-0:
             producer:
               exchange-type: fanout
