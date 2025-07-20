@@ -171,5 +171,7 @@ logging:
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
     org.springframework.boot.context.config: DEBUG
+    org.springframework.amqp: DEBUG
+    org.springframework.cloud.stream: DEBUG
     org.springframework.http.converter.json: DEBUG
     org.springframework.validation: DEBUG
