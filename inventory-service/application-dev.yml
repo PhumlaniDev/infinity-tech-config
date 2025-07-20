@@ -28,6 +28,7 @@ spring:
         bindings:
           reserveStock-in-0:
             consumer:
+              exchange-type: fanout   # 👈 MUST match producer
               autoBindDlq: true
               requeueRejected: false
   datasource:

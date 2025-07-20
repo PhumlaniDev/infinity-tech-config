@@ -17,6 +17,7 @@ spring:
           group: notification-order-group
           content-type: application/json
           consumer:
+            exchange-type: fanout   # 👈 MUST match producer
             autoBindDlq: true
             republishToDlq: true
             maxAttempts: 3
