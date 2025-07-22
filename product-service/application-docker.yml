@@ -4,14 +4,22 @@ server:
 spring:
   application:
     name: product-service
-
   config:
     activate:
       on-profile: docker
-
+  cloud:
+    stream:
+      bindings:
+        productCreated-out-0:
+          destination: product.created.queue
+          content-type: application/json
+      rabbit:
+        bindings:
+          productCreated-out-0:
+            producer:
+              exchange-type: fanout
   cache:
     type: redis
-
   datasource:
     url: jdbc:postgresql://postgres-product:5432/productdb
     username: postgres
@@ -24,7 +32,6 @@ spring:
       max-lifetime: 1800000      # 30 minutes
       connection-timeout: 10000  # 10 seconds max wait for a connection
       pool-name: DevHikariCP
-
   jpa:
     hibernate:
       ddl-auto: update
@@ -33,11 +40,9 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
-
   redis:
     host: redis
     port: 6379
-
   security:
     oauth2:
       resourceserver:

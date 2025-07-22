@@ -4,14 +4,22 @@ server:
 spring:
   application:
     name: product-service
-
   config:
     activate:
       on-profile: dev
-
+  cloud:
+    stream:
+      bindings:
+        productCreated-out-0:
+          destination: product.created.queue
+          content-type: application/json
+      rabbit:
+        bindings:
+          productCreated-out-0:
+            producer:
+              exchange-type: fanout
   cache:
     type: redis
-
   datasource:
     url: jdbc:postgresql://localhost:5432/productdb
     username: "{cipher}2dbb4f8fb118abdff5534ba5bc8c8ed8cc1435a333a2958811a3f9713215d1ee"

@@ -24,6 +24,11 @@ spring:
         stockReservationFailed-out-0:
           destination: stock.failed
 
+        productCreated-in-0:
+          destination: product.created.queue
+          group: inventory-group
+          content-type: application/json
+
       rabbit:
         bindings:
           reserveStock-in-0:
@@ -31,6 +36,10 @@ spring:
               exchange-type: fanout   # 👈 MUST match producer
               autoBindDlq: true
               requeueRejected: false
+          productCreated-in-0:
+            consumer:
+              exchange-type: fanout
+              autoBindDlq: true
   datasource:
     url: jdbc:postgresql://localhost:5432/inventorydb
     username: postgres
