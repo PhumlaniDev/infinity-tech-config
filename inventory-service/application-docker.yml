@@ -7,30 +7,43 @@ spring:
   config:
     activate:
       on-profile: docker
-  cloud:
-    stream:
-      defaultBinder: rabbit
-      bindings:
-        # ✅ Consumer of order placed
-        reserveStock-in-0:
-          destination: order.placed.queue
-          group: inventory-group
-
-        # ✅ Stock reservation success response
-        stockReserved-out-0:
-          destination: stock.reserved
-
-        # ❌ Stock reservation failure response
-        stockReservationFailed-out-0:
-          destination: stock.failed
-
-      rabbit:
-        bindings:
-          reserveStock-in-0:
-            consumer:
-              exchange-type: fanout   # 👈 MUST match producer
-              autoBindDlq: true
-              requeueRejected: false
+  spring:
+    kafka:
+      bootstrap-servers: localhost:9093
+      consumer:
+        group-id: ${spring.application.name}
+        auto-offset-reset: earliest
+        key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+        value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+        properties:
+          spring.json.trusted.packages: "*"
+      producer:
+        key-serializer: org.apache.kafka.common.serialization.StringSerializer
+        value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+#  cloud:
+#    stream:
+#      defaultBinder: rabbit
+#      bindings:
+#        # ✅ Consumer of order placed
+#        reserveStock-in-0:
+#          destination: order.placed.queue
+#          group: inventory-group
+#
+#        # ✅ Stock reservation success response
+#        stockReserved-out-0:
+#          destination: stock.reserved
+#
+#        # ❌ Stock reservation failure response
+#        stockReservationFailed-out-0:
+#          destination: stock.failed
+#
+#      rabbit:
+#        bindings:
+#          reserveStock-in-0:
+#            consumer:
+#              exchange-type: fanout   # 👈 MUST match producer
+#              autoBindDlq: true
+#              requeueRejected: false
   datasource:
     url: jdbc:postgresql://postgres-inventory:5432/inventorydb
     username: postgres

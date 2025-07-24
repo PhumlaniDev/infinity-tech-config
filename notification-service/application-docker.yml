@@ -7,34 +7,47 @@ spring:
   config:
     activate:
       on-profile: docker
-  cloud:
-    stream:
-      defaultBinder: rabbit
-      bindings:
-        # ✅ Consumer of order placed events
-        orderPlaced-in-0:
-          destination: order.placed.queue
-          group: notification-order-group
-          content-type: application/json
-          consumer:
-            exchange-type: fanout   # 👈 MUST match producer
-            autoBindDlq: true
-            republishToDlq: true
-            maxAttempts: 3
-            backOffInitialInterval: 2000
-            backOffMultiplier: 2.0
-
-        # ➕ Future: Consume payment completed event
-        paymentCompleted-in-0:
-          destination: payment.completed.queue
-          group: notification-payment-group
-          content-type: application/json
-          consumer:
-            autoBindDlq: true
-            republishToDlq: true
-            maxAttempts: 3
-            backOffInitialInterval: 2000
-            backOffMultiplier: 2.0
+  spring:
+    kafka:
+      bootstrap-servers: localhost:9093
+      consumer:
+        group-id: ${spring.application.name}
+        auto-offset-reset: earliest
+        key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+        value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+        properties:
+          spring.json.trusted.packages: "*"
+      producer:
+        key-serializer: org.apache.kafka.common.serialization.StringSerializer
+        value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+#  cloud:
+#    stream:
+#      defaultBinder: rabbit
+#      bindings:
+#        # ✅ Consumer of order placed events
+#        orderPlaced-in-0:
+#          destination: order.placed.queue
+#          group: notification-order-group
+#          content-type: application/json
+#          consumer:
+#            exchange-type: fanout   # 👈 MUST match producer
+#            autoBindDlq: true
+#            republishToDlq: true
+#            maxAttempts: 3
+#            backOffInitialInterval: 2000
+#            backOffMultiplier: 2.0
+#
+#        # ➕ Future: Consume payment completed event
+#        paymentCompleted-in-0:
+#          destination: payment.completed.queue
+#          group: notification-payment-group
+#          content-type: application/json
+#          consumer:
+#            autoBindDlq: true
+#            republishToDlq: true
+#            maxAttempts: 3
+#            backOffInitialInterval: 2000
+#            backOffMultiplier: 2.0
   datasource:
     url: jdbc:postgresql://postgres-notification:5432/notificationdb
     username: postgres

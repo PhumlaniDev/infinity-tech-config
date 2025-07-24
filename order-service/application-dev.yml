@@ -7,58 +7,70 @@ spring:
   config:
     activate:
       on-profile: dev
-  cloud:
-    stream:
-      defaultBinder: rabbit
-      bindings:
-        # 1️⃣ Outbound to RabbitMQ
-        orderPlaced-out-0:
-          destination: order.placed.queue
-          content-type: application/json
-
-        # 2️⃣ Inbound from inventory-service (success)
-        handleStockReserved-in-0:
-          destination: stock.reserved
-          group: order-service
-
-        # 3️⃣ Inbound from inventory-service (failure)
-        handleStockReservationFailed-in-0:
-          destination: stock.failed
-          group: order-service
-
-        # 4️⃣ Outbound to payment-service
-        paymentRequest-out-0:
-          destination: payment.request
-          content-type: application/json
-
-        # 5️⃣ Outbound to notification-service (optional fallback)
-        orderFailedNotification-out-0:
-          destination: order.failed.notification
-          content-type: application/json
-
-      rabbit:
-        bindings:
-          orderPlaced-out-0:
-            producer:
-              exchange-type: fanout
-
-          handleStockReserved-in-0:
-            consumer:
-              autoBindDlq: true
-              requeueRejected: false
-
-          handleStockReservationFailed-in-0:
-            consumer:
-              autoBindDlq: true
-              requeueRejected: false
-
-          paymentRequest-out-0:
-            producer:
-              exchange-type: fanout
-
-          orderFailedNotification-out-0:
-            producer:
-              exchange-type: fanout
+  kafka:
+    bootstrap-servers: localhost:9093
+    consumer:
+      group-id: ${spring.application.name}
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "*"
+      producer:
+        key-serializer: org.apache.kafka.common.serialization.StringSerializer
+        value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+#  cloud:
+#    stream:
+#      defaultBinder: rabbit
+#      bindings:
+#        # 1️⃣ Outbound to RabbitMQ
+#        orderPlaced-out-0:
+#          destination: order.placed.queue
+#          content-type: application/json
+#
+#        # 2️⃣ Inbound from inventory-service (success)
+#        handleStockReserved-in-0:
+#          destination: stock.reserved
+#          group: order-service
+#
+#        # 3️⃣ Inbound from inventory-service (failure)
+#        handleStockReservationFailed-in-0:
+#          destination: stock.failed
+#          group: order-service
+#
+#        # 4️⃣ Outbound to payment-service
+#        paymentRequest-out-0:
+#          destination: payment.request
+#          content-type: application/json
+#
+#        # 5️⃣ Outbound to notification-service (optional fallback)
+#        orderFailedNotification-out-0:
+#          destination: order.failed.notification
+#          content-type: application/json
+#
+#      rabbit:
+#        bindings:
+#          orderPlaced-out-0:
+#            producer:
+#              exchange-type: fanout
+#
+#          handleStockReserved-in-0:
+#            consumer:
+#              autoBindDlq: true
+#              requeueRejected: false
+#
+#          handleStockReservationFailed-in-0:
+#            consumer:
+#              autoBindDlq: true
+#              requeueRejected: false
+#
+#          paymentRequest-out-0:
+#            producer:
+#              exchange-type: fanout
+#
+#          orderFailedNotification-out-0:
+#            producer:
+#              exchange-type: fanout
   datasource:
     url: jdbc:postgresql://localhost:5432/orderdb
     username: "{cipher}2dbb4f8fb118abdff5534ba5bc8c8ed8cc1435a333a2958811a3f9713215d1ee"
