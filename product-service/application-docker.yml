@@ -9,15 +9,11 @@ spring:
       on-profile: docker
   cloud:
     stream:
+      default-binder: kafka
       bindings:
         productCreated-out-0:
-          destination: product.created.queue
+          destination: product.created
           content-type: application/json
-      rabbit:
-        bindings:
-          productCreated-out-0:
-            producer:
-              exchange-type: fanout
   cache:
     type: redis
   datasource:
