@@ -9,7 +9,10 @@ spring:
       on-profile: dev
   cloud:
     stream:
-      defaultBinder: kafka
+      default-binder: kafka
+      kafka:
+        binder:
+          brokers: localhost:9092
       bindings:
         # ✅ Consumer of order placed
         reserveStock-in-0:
