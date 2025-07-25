@@ -7,16 +7,20 @@ spring:
   config:
     activate:
       on-profile: docker
-  kafka:
-    bootstrap-servers: localhost:29092
-    consumer:
-      group-id: order-group
-      auto-offset-reset: earliest
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-    producer:
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+  cloud:
+    stream:
+      defaultBinder: kafka
+      bindings:
+        orderPlaced-out-0:
+          destination: order.placed
+
+        reserveStock-in-0:
+          destination: stock.reserved
+          group: order-group
+
+        stockReservationFailed-in-0:
+          destination: stock.failed
+          group: order-group
 #  cloud:
 #    stream:
 #      defaultBinder: rabbit

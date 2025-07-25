@@ -7,28 +7,14 @@ spring:
   config:
     activate:
       on-profile: dev
-  spring:
-    kafka:
-      bootstrap-servers: localhost:29092
-      consumer:
-        group-id: ${spring.application.name}
-        auto-offset-reset: earliest
-        key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-        value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-        properties:
-          spring.json.trusted.packages: "*"
-      producer:
-        key-serializer: org.apache.kafka.common.serialization.StringSerializer
-        value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
-
-  #  cloud:
-#    stream:
-#      defaultBinder: rabbit
-#      bindings:
-#        # ✅ Consumer of order placed events
-#        orderPlaced-in-0:
-#          destination: order.placed.queue
-#          group: notification-order-group
+  cloud:
+    stream:
+      defaultBinder: kafka
+      bindings:
+        # ✅ Consumer of order placed events
+        orderPlaced-in-0:
+          destination: order.placed.queue
+          group: notification-order-group
 #          content-type: application/json
 #          consumer:
 #            exchange-type: fanout   # 👈 MUST match producer
@@ -37,11 +23,11 @@ spring:
 #            maxAttempts: 3
 #            backOffInitialInterval: 2000
 #            backOffMultiplier: 2.0
-#
-#        # ➕ Future: Consume payment completed event
-#        paymentCompleted-in-0:
-#          destination: payment.completed.queue
-#          group: notification-payment-group
+
+        # ➕ Future: Consume payment completed event
+        paymentCompleted-in-0:
+          destination: payment.completed.queue
+          group: notification-payment-group
 #          content-type: application/json
 #          consumer:
 #            autoBindDlq: true
