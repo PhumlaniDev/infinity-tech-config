@@ -7,18 +7,27 @@ spring:
   config:
     activate:
       on-profile: dev
+  kafka:
+    bootstrap-servers: localhost:29092
+    consumer:
+      group-id: ${spring.application.name}
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: '*'
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
   cloud:
     stream:
-      defaultBinder: rabbit
+      default-binder: kafka
+      kafka:
+        binder:
+          brokers: localhost:29092
       bindings:
         paymentCompleted-out-0:
-          destination: payment.completed.queue
-          content-type: application/json
-      rabbit:
-        bindings:
-          paymentCompleted-out-0:
-            producer:
-              exchange-type: fanout
+          destination: payment.completed
   datasource:
     url: jdbc:postgresql://localhost:5432/paymentdb
     username: postgres

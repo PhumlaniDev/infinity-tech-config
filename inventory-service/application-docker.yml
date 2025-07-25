@@ -41,7 +41,7 @@ spring:
 
         productCreated-in-0:
           destination: product.created
-          group: inventory-group
+          group: inventory-product-group
   datasource:
     url: jdbc:postgresql://postgres-inventory:5432/inventorydb
     username: postgres
