@@ -7,58 +7,75 @@ spring:
   config:
     active:
       on-profile: dev
-  cloud:
-    stream:
-      default-binder: kafka
-
-      bindings:
-        # 🔹 Consumer of OrderPlacedEvent
-        reserveStock-in-0:
-          destination: order.placed
-          group: inventory-group
-
-        # 🔹 Producer of StockReservedEvent
-        stockReserved-out-0:
-          destination: stock.reserved
-
-        # 🔹 Producer of StockReservationFailedEvent
-        stockReservationFailed-out-0:
-          destination: stock.failed
-
-        # 🔹 Consumer of ProductCreatedEvent
-        productCreated-in-0:
-          destination: product.created
-          group: inventory-product-group
-
-      kafka:
-        binder:
-          brokers: localhost:29092
-
-        bindings:
-          reserveStock-in-0:
-            consumer:
-              autoCommitOffset: true
-              autoBindDlq: true
-              configuration:
-                spring.json.trusted.packages: '*'
-
-          productCreated-in-0:
-            consumer:
-              autoCommitOffset: true
-              autoBindDlq: true
-              configuration:
-                spring.json.trusted.packages: '*'
-
-          # 🔹 Outbound bindings should use producer
-          stockReserved-out-0:
-            producer:
-              configuration:
-                spring.json.trusted.packages: '*'
-
-          stockReservationFailed-out-0:
-            producer:
-              configuration:
-                spring.json.trusted.packages: '*'
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: inventory-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: com.example.shared.event
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.add.type.headers: true
+    listener:
+      concurrency: 3
+      ack-mode: manual
+#  cloud:
+#    stream:
+#      default-binder: kafka
+#
+#      bindings:
+#        # 🔹 Consumer of OrderPlacedEvent
+#        reserveStock-in-0:
+#          destination: order.placed
+#          group: inventory-group
+#
+#        # 🔹 Producer of StockReservedEvent
+#        stockReserved-out-0:
+#          destination: stock.reserved
+#
+#        # 🔹 Producer of StockReservationFailedEvent
+#        stockReservationFailed-out-0:
+#          destination: stock.failed
+#
+#        # 🔹 Consumer of ProductCreatedEvent
+#        productCreated-in-0:
+#          destination: product.created
+#          group: inventory-product-group
+#
+#      kafka:
+#        binder:
+#          brokers: localhost:29092
+#
+#        bindings:
+#          reserveStock-in-0:
+#            consumer:
+#              autoCommitOffset: true
+#              autoBindDlq: true
+#              configuration:
+#                spring.json.trusted.packages: '*'
+#
+#          productCreated-in-0:
+#            consumer:
+#              autoCommitOffset: true
+#              autoBindDlq: true
+#              configuration:
+#                spring.json.trusted.packages: '*'
+#
+#          # 🔹 Outbound bindings should use producer
+#          stockReserved-out-0:
+#            producer:
+#              configuration:
+#                spring.json.trusted.packages: '*'
+#
+#          stockReservationFailed-out-0:
+#            producer:
+#              configuration:
+#                spring.json.trusted.packages: '*'
 #  config:
 #    activate:
 #      on-profile: dev
