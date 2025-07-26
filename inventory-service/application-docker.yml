@@ -121,5 +121,7 @@ logging:
     org.springframework.boot.context.config: DEBUG
     org.springframework.amqp: DEBUG
     org.springframework.cloud.stream: DEBUG
+    org.springframework.kafka: DEBUG
+    org.apache.kafka: DEBUG
     org.springframework.http.converter.json: DEBUG
     org.springframework.validation: DEBUG
