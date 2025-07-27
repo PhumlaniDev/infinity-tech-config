@@ -184,13 +184,18 @@ management:
 
 logging:
   level:
-    com.phumlanidev.orderservice: DEBUG
-    org.hibernate.SQL: DEBUG
-    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
-    org.springframework.boot.context.config: DEBUG
-    org.springframework.amqp: DEBUG
-    org.springframework.cloud.stream: DEBUG
-    org.springframework.kafka: DEBUG
-    org.apache.kafka: DEBUG
-    org.springframework.http.converter.json: DEBUG
-    org.springframework.validation: DEBUG
+    # Set your application's log level
+    com.phumlanidev.orderservice: INFO
+
+    # Reduce Hibernate verbosity
+    org.hibernate.SQL: INFO
+    org.hibernate.type.descriptor.sql.BasicBinder: INFO
+
+    # Reduce Spring Boot and AMQP noise
+    org.springframework.boot.context.config: INFO
+    org.springframework.amqp: INFO
+    org.springframework.cloud.stream: INFO
+    org.springframework.kafka: WARN
+    org.apache.kafka: WARN
+    org.springframework.http.converter.json: INFO
+    org.springframework.validation: INFO
