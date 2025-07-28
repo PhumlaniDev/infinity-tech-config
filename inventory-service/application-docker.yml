@@ -26,6 +26,9 @@ spring:
     listener:
       concurrency: 3
       ack-mode: manual
+    retry:
+      topic:
+        enabled: true
 #  cloud:
 #    stream:
 #      default-binder: kafka
