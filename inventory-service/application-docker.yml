@@ -8,7 +8,7 @@ spring:
     activate:
       on-profile: docker
   kafka:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: kafka:9092
     consumer:
       group-id: inventory-group
       auto-offset-reset: earliest
@@ -16,106 +16,41 @@ spring:
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
         spring.json.trusted.packages: "com.phumlanidev.commonevents.events"
-        spring.json.value.default.type: com.phumlanidev.commonevents.events.ProductCreatedEvent
+        spring.json.value.default.type: "com.phumlanidev.commonevents.events.*"
         spring.json.use.type.headers: false
-    producer:
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
-      properties:
-        spring.json.add.type.headers: true
-    listener:
-      concurrency: 3
-      ack-mode: manual
-    retry:
-      topic:
-        enabled: true
-#  cloud:
-#    stream:
-#      default-binder: kafka
-#
-#      bindings:
-#        # 🔹 Consumer of OrderPlacedEvent
-#        reserveStock-in-0:
-#          destination: order.placed
-#          group: inventory-group
-#
-#        # 🔹 Producer of StockReservedEvent
-#        stockReserved-out-0:
-#          destination: stock.reserved
-#
-#        # 🔹 Producer of StockReservationFailedEvent
-#        stockReservationFailed-out-0:
-#          destination: stock.failed
-#
-#        # 🔹 Consumer of ProductCreatedEvent
-#        productCreated-in-0:
-#          destination: product.created
-#          group: inventory-product-group
-#
-#      kafka:
-#        binder:
-#          brokers: localhost:29092
-#
-#        bindings:
-#          reserveStock-in-0:
-#            consumer:
-#              autoCommitOffset: true
-#              autoBindDlq: true
-#              configuration:
-#                spring.json.trusted.packages: '*'
-#
-#          productCreated-in-0:
-#            consumer:
-#              autoCommitOffset: true
-#              autoBindDlq: true
-#              configuration:
-#                spring.json.trusted.packages: '*'
-#
-#          # 🔹 Outbound bindings should use producer
-#          stockReserved-out-0:
-#            producer:
-#              configuration:
-#                spring.json.trusted.packages: '*'
-#
-#          stockReservationFailed-out-0:
-#            producer:
-#              configuration:
-#                spring.json.trusted.packages: '*'
-#  kafka:
-#    bootstrap-servers: kafka:9092
-#    consumer:
-#      group-id: ${spring.application.name}
-#      auto-offset-reset: earliest
-#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-#      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-#      properties:
-#        spring.json.trusted.packages: '*'
-#    producer:
-#      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-#      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
-#  cloud:
-#    stream:
-#      default-binder: kafka
-#      kafka:
-#        binder:
-#          brokers: kafka:9092
-#      bindings:
-#        # ✅ Consumer of order placed
-#        reserveStock-in-0:
-#          destination: order.placed
-#          group: inventory-group
-#
-#        # ✅ Stock reservation success response
-#        stockReserved-out-0:
-#          destination: stock.reserved
-#
-#        # ❌ Stock reservation failure response
-#        stockReservationFailed-out-0:
-#          destination: stock.failed
-#
-#        productCreated-in-0:
-#          destination: product.created
-#          group: inventory-product-group
+      producer:
+        key-serializer: org.apache.kafka.common.serialization.StringSerializer
+        value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+        properties:
+          spring.json.add.type.headers: true
+      listener:
+        concurrency: 3
+        ack-mode: manual
+      retry:
+        topic:
+          enabled: true
+      cloud:
+        stream:
+          default-binder: kafka
+
+          bindings:
+            # 🔹 Consumer of OrderPlacedEvent
+            reserveStock-in-0:
+              destination: order.placed
+              group: inventory-order-group
+
+            # 🔹 Producer of StockReservedEvent
+            stockReserved-out-0:
+              destination: stock.reserved
+
+            # 🔹 Producer of StockReservationFailedEvent
+            stockReservationFailed-out-0:
+              destination: stock.failed
+
+            # 🔹 Consumer of ProductCreatedEvent
+            productCreated-in-0:
+              destination: product.created
+              group: inventory-product-group
   datasource:
     url: jdbc:postgresql://postgres-inventory:5432/inventorydb
     username: postgres
@@ -168,15 +103,13 @@ management:
   endpoints:
     web:
       exposure:
-        include: "*"
+        include: health, info, prometheus
   health:
     readiness-state:
       enabled: true
     liveness-state:
       enabled: true
   endpoint:
-    shutdown:
-      access: unrestricted
     health:
       probes:
         enabled: true
