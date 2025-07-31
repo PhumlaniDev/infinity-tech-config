@@ -10,7 +10,7 @@ spring:
   kafka:
     bootstrap-servers: kafka:9092
     consumer:
-      group-id: inventory-group
+      group-id: ${spring.application.name}
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
@@ -37,7 +37,7 @@ spring:
             # 🔹 Consumer of OrderPlacedEvent
             reserveStock-in-0:
               destination: order.placed
-              group: inventory-order-group
+              group: inventory-group
 
             # 🔹 Producer of StockReservedEvent
             stockReserved-out-0:
@@ -50,7 +50,7 @@ spring:
             # 🔹 Consumer of ProductCreatedEvent
             productCreated-in-0:
               destination: product.created
-              group: inventory-product-group
+              group: inventory-group
   datasource:
     url: jdbc:postgresql://postgres-inventory:5432/inventorydb
     username: postgres

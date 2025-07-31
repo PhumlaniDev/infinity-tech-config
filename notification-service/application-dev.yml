@@ -31,7 +31,7 @@ spring:
           destination: order.placed
           group: notification-order-group
 #          content-type: application/json
-#          consumer:
+#          listener:
 #            exchange-type: fanout   # 👈 MUST match producer
 #            autoBindDlq: true
 #            republishToDlq: true
@@ -44,7 +44,7 @@ spring:
           destination: payment.completed
           group: notification-payment-group
 #          content-type: application/json
-#          consumer:
+#          listener:
 #            autoBindDlq: true
 #            republishToDlq: true
 #            maxAttempts: 3
@@ -127,15 +127,13 @@ management:
   endpoints:
     web:
       exposure:
-        include: "*"
+        include: health, info, prometheus
   health:
     readiness-state:
       enabled: true
     liveness-state:
       enabled: true
   endpoint:
-    shutdown:
-      access: unrestricted
     health:
       probes:
         enabled: true
@@ -148,10 +146,18 @@ management:
 
 logging:
   level:
+    # Set your application's log level
     com.phumlanidev.notificationservice: DEBUG
-    org.hibernate.SQL: DEBUG
-    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
-    org.springframework.amqp: DEBUG
-    org.springframework.cloud.stream: DEBUG
-    org.springframework.http.converter.json: DEBUG
-    org.springframework.validation: DEBUG
+
+    # Reduce Hibernate verbosity
+    org.hibernate.SQL: INFO
+    org.hibernate.type.descriptor.sql.BasicBinder: INFO
+
+    # Reduce Spring Boot and AMQP noise
+    org.springframework.boot.context.config: INFO
+    org.springframework.amqp: INFO
+    org.springframework.cloud.stream: INFO
+    org.springframework.kafka: WARN
+    org.apache.kafka: WARN
+    org.springframework.http.converter.json: INFO
+    org.springframework.validation: INFO

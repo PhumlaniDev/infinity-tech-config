@@ -15,10 +15,23 @@ spring:
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
-        spring.json.trusted.packages: '*'
+        spring.json.trusted.packages: "com.phumlanidev.commonevents.events"
+        spring.json.use.type.headers: false
+      enable-auto-commit: false
+      max-poll-records: 10
+      heartbeat-interval: 1000
+      session-timeout: 15000
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.add.type.headers: true
+    listener:
+      concurrency: 3
+      ack-mode: manual
+    retry:
+      topic:
+        enabled: true
   cloud:
     stream:
       default-binder: kafka
@@ -72,12 +85,12 @@ spring:
 #              exchange-type: fanout
 #
 #          handleStockReserved-in-0:
-#            consumer:
+#            listener:
 #              autoBindDlq: true
 #              requeueRejected: false
 #
 #          handleStockReservationFailed-in-0:
-#            consumer:
+#            listener:
 #              autoBindDlq: true
 #              requeueRejected: false
 #
@@ -182,15 +195,13 @@ management:
   endpoints:
     web:
       exposure:
-        include: "*"
+        include: health, info, prometheus
   health:
     readiness-state:
       enabled: true
     liveness-state:
       enabled: true
   endpoint:
-    shutdown:
-      access: unrestricted
     health:
       probes:
         enabled: true
@@ -203,11 +214,18 @@ management:
 
 logging:
   level:
+    # Set your application's log level
     com.phumlanidev.orderservice: DEBUG
-    org.hibernate.SQL: DEBUG
-    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
-    org.springframework.boot.context.config: DEBUG
-    org.springframework.amqp: DEBUG
-    org.springframework.cloud.stream: DEBUG
-    org.springframework.http.converter.json: DEBUG
-    org.springframework.validation: DEBUG
+
+    # Reduce Hibernate verbosity
+    org.hibernate.SQL: INFO
+    org.hibernate.type.descriptor.sql.BasicBinder: INFO
+
+    # Reduce Spring Boot and AMQP noise
+    org.springframework.boot.context.config: INFO
+    org.springframework.amqp: INFO
+    org.springframework.cloud.stream: INFO
+    org.springframework.kafka: WARN
+    org.apache.kafka: WARN
+    org.springframework.http.converter.json: INFO
+    org.springframework.validation: INFO
