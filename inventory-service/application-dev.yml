@@ -1,6 +1,17 @@
 server:
   port: 9700
 
+keycloak:
+  auth-server-url: http://localhost:8080
+  realm: ecommerce
+  resource: invetory-service
+  principle-attribute: preferred_username
+  credentials:
+    secret: "{cipher}20ca560d46c74c510c3942acc53cfc34edcc1254a9ddf34435be9a4431965812e10ea9fbf8cae310cced69db5818925ebbaf462a61583a14e23c09639286744e"
+  admin:
+    username: "{cipher}1b1605dd29d70df25c643ed64a28779456c1453c2252432b3a77e77ae35935d0"
+    password: "{cipher}9691f299e5d13785d56be58db20a811fbea1b1b8469c6d0b7dfb2040be6eac09"
+
 spring:
   application:
     name: inventory-service
@@ -10,10 +21,10 @@ spring:
   kafka:
     bootstrap-servers: localhost:29092
     consumer:
-      group-id: ${spring.application.name}
+      group-id: inventory-group
       auto-offset-reset: earliest
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      key-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
       properties:
         spring.deserializer.key.delegate.class: org.apache.kafka.common.serialization.StringDeserializer
         spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
@@ -23,9 +34,6 @@ spring:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       properties:
-        spring.deserializer.key.delegate.class: org.apache.kafka.common.serialization.StringDeserializer
-        spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
-        spring.json.trusted.packages: "com.phumlanidev.commonevents.events"
         spring.json.add.type.headers: true
     listener:
       concurrency: 3
@@ -54,7 +62,7 @@ spring:
         # 🔹 Consumer of ProductCreatedEvent
         productCreated-in-0:
           destination: product.created
-          group: inventory-group
+          group: inventory-product-group
   datasource:
     url: jdbc:postgresql://localhost:5432/inventorydb
     username: postgres
@@ -86,17 +94,6 @@ spring:
     port: 5672
     username: "{cipher}21ef876d345fc0f126fb77707df98e739755474e6d39a35bf01f3b9af2f15b7f"
     password: "{cipher}3a2d49f7665bd9715e6c718a5b3b48057049f0695f52bf4e32c18c33189c06ef"
-
-keycloak:
-  auth-server-url: http://localhost:8080
-  realm: ecommerce
-  resource: invetory-service
-  principle-attribute: preferred_username
-  credentials:
-    secret: "{cipher}20ca560d46c74c510c3942acc53cfc34edcc1254a9ddf34435be9a4431965812e10ea9fbf8cae310cced69db5818925ebbaf462a61583a14e23c09639286744e"
-  admin:
-    username: "{cipher}1b1605dd29d70df25c643ed64a28779456c1453c2252432b3a77e77ae35935d0"
-    password: "{cipher}9691f299e5d13785d56be58db20a811fbea1b1b8469c6d0b7dfb2040be6eac09"
 
 eureka:
   client:

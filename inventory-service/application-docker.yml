@@ -10,23 +10,20 @@ spring:
   kafka:
     bootstrap-servers: kafka:9092
     consumer:
-      group-id: ${spring.application.name}
+      group-id: inventory-group
       auto-offset-reset: earliest
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      key-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
       properties:
         spring.deserializer.key.delegate.class: org.apache.kafka.common.serialization.StringDeserializer
         spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
         spring.json.trusted.packages: "com.phumlanidev.commonevents.events"
         spring.json.use.type.headers: false
-    producer:
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
-      properties:
-        spring.deserializer.key.delegate.class: org.apache.kafka.common.serialization.StringDeserializer
-        spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
-        spring.json.trusted.packages: "com.phumlanidev.commonevents.events"
-        spring.json.add.type.headers: true
+      producer:
+        key-serializer: org.apache.kafka.common.serialization.StringSerializer
+        value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+        properties:
+          spring.json.add.type.headers: true
       listener:
         concurrency: 3
         ack-mode: manual
@@ -54,7 +51,7 @@ spring:
             # 🔹 Consumer of ProductCreatedEvent
             productCreated-in-0:
               destination: product.created
-              group: inventory-group
+              group: inventory-product-group
   datasource:
     url: jdbc:postgresql://postgres-inventory:5432/inventorydb
     username: postgres
