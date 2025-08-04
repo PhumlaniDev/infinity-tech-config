@@ -52,6 +52,10 @@ spring:
             productCreated-in-0:
               destination: product.created
               group: inventory-product-group
+
+            # 🔹 Producer of OrderPlacedEvent
+            orderPlacedEvent-out-0:
+              destination: order.placed
   datasource:
     url: jdbc:postgresql://postgres-inventory:5432/inventorydb
     username: postgres
