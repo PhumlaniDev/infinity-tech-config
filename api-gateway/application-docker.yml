@@ -58,6 +58,9 @@ spring:
             locator:
               enabled: true
               lower-case-service-id: true
+          httpclient:
+            connect-timeout: 3000
+            response-timeout: 20s
           routes:
             - id: auth-service
               uri: lb://auth-service

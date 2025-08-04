@@ -59,8 +59,8 @@ spring:
               enabled: true
               lower-case-service-id: true
           httpclient:
-            connect-timeout: 1000
-            response-timeout: 10s
+            connect-timeout: 3000
+            response-timeout: 20s
           routes:
             - id: auth-service
               uri: lb://auth-service
