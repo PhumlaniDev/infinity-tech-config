@@ -5,7 +5,7 @@ spring:
   application:
     name: inventory-service
   config:
-    active:
+    activate:
       on-profile: dev
   kafka:
     bootstrap-servers: localhost:29092
@@ -30,32 +30,6 @@ spring:
     retry:
       topic:
         enabled: true
-  cloud:
-    stream:
-      default-binder: kafka
-
-      bindings:
-        # 🔹 Consumer of OrderPlacedEvent
-        reserveStock-in-0:
-          destination: order.placed
-          group: inventory-group
-
-        # 🔹 Producer of StockReservedEvent
-        stockReserved-out-0:
-          destination: stock.reserved
-
-        # 🔹 Producer of StockReservationFailedEvent
-        stockReservationFailed-out-0:
-          destination: stock.failed
-
-        # 🔹 Consumer of ProductCreatedEvent
-        productCreated-in-0:
-          destination: product.created
-          group: inventory-product-group
-
-        # 🔹 Producer of OrderPlacedEvent
-        orderPlacedEvent-out-0:
-          destination: order.placed
   datasource:
     url: jdbc:postgresql://localhost:5432/inventorydb
     username: postgres

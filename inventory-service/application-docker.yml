@@ -18,44 +18,18 @@ spring:
         spring.deserializer.key.delegate.class: org.apache.kafka.common.serialization.StringDeserializer
         spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
         spring.json.trusted.packages: "com.phumlanidev.commonevents.events"
-        spring.json.use.type.headers: false
-      producer:
-        key-serializer: org.apache.kafka.common.serialization.StringSerializer
-        value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
-        properties:
-          spring.json.add.type.headers: true
-      listener:
-        concurrency: 3
-        ack-mode: manual
-      retry:
-        topic:
-          enabled: true
-      cloud:
-        stream:
-          default-binder: kafka
-
-          bindings:
-            # 🔹 Consumer of OrderPlacedEvent
-            reserveStock-in-0:
-              destination: order.placed
-              group: inventory-group
-
-            # 🔹 Producer of StockReservedEvent
-            stockReserved-out-0:
-              destination: stock.reserved
-
-            # 🔹 Producer of StockReservationFailedEvent
-            stockReservationFailed-out-0:
-              destination: stock.failed
-
-            # 🔹 Consumer of ProductCreatedEvent
-            productCreated-in-0:
-              destination: product.created
-              group: inventory-product-group
-
-            # 🔹 Producer of OrderPlacedEvent
-            orderPlacedEvent-out-0:
-              destination: order.placed
+        spring.json.use.type.headers: true
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.add.type.headers: true
+    listener:
+      concurrency: 3
+      ack-mode: manual
+    retry:
+      topic:
+        enabled: true
   datasource:
     url: jdbc:postgresql://postgres-inventory:5432/inventorydb
     username: postgres
