@@ -49,6 +49,9 @@ spring:
         stockReservationFailed-in-0:
           destination: stock.failed
           group: order-group
+
+        stockReserved-out-0:
+          destination: stock.reserved
   datasource:
     url: jdbc:postgresql://localhost:5432/orderdb
     username: "{cipher}2dbb4f8fb118abdff5534ba5bc8c8ed8cc1435a333a2958811a3f9713215d1ee"

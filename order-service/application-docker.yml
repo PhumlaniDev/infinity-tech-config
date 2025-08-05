@@ -49,6 +49,9 @@ spring:
         stockReservationFailed-in-0:
           destination: stock.failed
           group: order-group
+
+        stockReserved-out-0:
+          destination: stock.reserved
 #  cloud:
 #    stream:
 #      defaultBinder: rabbit
