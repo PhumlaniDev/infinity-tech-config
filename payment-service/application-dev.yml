@@ -124,6 +124,7 @@ eureka:
 keycloak:
   auth-server-url: http://localhost:8080
   realm: ecommerce
+  token-uri: http://localhost:8080/realms/ecommerce/protocol/openid-connect/token
   resource: payment-service
   principle-attribute: preferred_username
   credentials:
