@@ -31,7 +31,7 @@ spring:
       topic:
         enabled: true
   datasource:
-    url: jdbc:postgresql://postgres-inventory:5432/inventorydb
+    url: jdbc:postgresql://postgres-inventory:5432/inventory_db
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver

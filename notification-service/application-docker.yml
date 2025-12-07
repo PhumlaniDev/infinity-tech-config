@@ -31,7 +31,7 @@ spring:
       topic:
         enabled: true
   datasource:
-    url: jdbc:postgresql://postgres-notification:5432/notificationdb
+    url: jdbc:postgresql://postgres-notification:5432/notification_db
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver

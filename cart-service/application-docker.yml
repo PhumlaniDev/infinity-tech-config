@@ -8,7 +8,7 @@ spring:
     activate:
       on-profile: docker
   datasource:
-    url: jdbc:postgresql://postgres-cart:5432/cartdb
+    url: jdbc:postgresql://postgres-cart:5432/cart_db
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
