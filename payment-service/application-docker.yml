@@ -98,9 +98,9 @@ keycloak:
   realm: ecommerce
   resource: payment-service
   principle-attribute: preferred_username
-  token-url: http://localhost:8080/realms/master/protocol/openid-connect/token
+  token-url: http://localhost:8080/realms/ecommerce/protocol/openid-connect/token
   credentials:
-    secret: "{cipher}bae3f86488c175fe9d6291387f16598302954c90560242e0a3d246f5813ecb1a35db86cfe5fe3a5889d21e1037123307c78664d8ace54cfced6c6e776115880f"
+    secret: "{cipher}d1ab0b29ffcc5c658999a4c95f4897fb8ac52f1777f8508c3f54d17d904182378c53647cfaa0bdbeb6d40beba4412ee53828f452f148535c852e30c4d4e494c4"
   admin:
     username: "{cipher}1b1605dd29d70df25c643ed64a28779456c1453c2252432b3a77e77ae35935d0"
     password: "{cipher}9691f299e5d13785d56be58db20a811fbea1b1b8469c6d0b7dfb2040be6eac09"
