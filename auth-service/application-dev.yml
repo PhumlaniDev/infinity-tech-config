@@ -52,7 +52,7 @@ keycloak:
   resource: auth-service
   principle-attribute: preferred_username
   credentials:
-    secret: "{cipher}695f274a606d4cb4e31fa02f2bd996549a0703450927e37d397fedbaf3949345481e4b5e73a9da700ab44e91e5c3f38d7dab9bc46dba46aa813e5b00906c05af"
+    secret: "{cipher}f5a08caf50883af3dd92295974c680be234f6a1849a2664d0d30fa980568979d22dbd08f4e73d03cc5a17b776bc4deb7f4c72ffd1a5ce4795b8ea094f064cb86"
   admin:
     username: "{cipher}1b1605dd29d70df25c643ed64a28779456c1453c2252432b3a77e77ae35935d0"
     password: "{cipher}9691f299e5d13785d56be58db20a811fbea1b1b8469c6d0b7dfb2040be6eac09"

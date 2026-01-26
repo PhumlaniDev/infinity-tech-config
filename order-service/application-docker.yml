@@ -73,7 +73,7 @@ keycloak:
   resource: order-service
   principle-attribute: preferred_username
   credentials:
-    secret: "{cipher}1591796e6c5430b69c64f1d4809d92be06712373739e4069c4abe1affe61f2ee6c2b2c177261d2198fc85f91e8a940fa9285a84dc503d6658f6dbc299d8a336a"
+    secret: "{cipher}2cd76c0c9c49b76bed2ea76b7a48dc7d5a83483a88938665d5e5173b74be56799f453191d78ed5be698cbda39b049911eb097161099ba525efa2631187474fe0"
   admin:
     username: "{cipher}1b1605dd29d70df25c643ed64a28779456c1453c2252432b3a77e77ae35935d0"
     password: "{cipher}9691f299e5d13785d56be58db20a811fbea1b1b8469c6d0b7dfb2040be6eac09"
