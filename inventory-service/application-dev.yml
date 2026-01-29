@@ -65,7 +65,7 @@ spring:
 keycloak:
   auth-server-url: https://keycloak.phumlaniarendse.co.za
   realm: ecommerce
-  resource: invetory-service
+  resource: inventory-service
   principle-attribute: preferred_username
   credentials:
     secret: "{cipher}2ed77ed7e28ec200828e044ba530cb8bc6684130cf1a8e44f76a065df75bed454c20d3c07593ad2ce92b96bd037bf58836d6b393e0bafe18f9e7fbf74fa646b8"
