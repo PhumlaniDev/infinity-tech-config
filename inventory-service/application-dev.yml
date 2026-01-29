@@ -54,8 +54,8 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8080/realms/ecommerce
-          jwk-uri: http://localhost:8080/realms/ecommerce/protocol/openid-connect/certs
+          issuer-uri: https://keycloak.phumlaniarendse.co.za/realms/ecommerce
+          jwk-uri: https://keycloak.phumlaniarendse.co.za/realms/ecommerce/protocol/openid-connect/certs
   rabbitmq:
     host: localhost
     port: 5672
@@ -63,7 +63,7 @@ spring:
     password: "{cipher}3a2d49f7665bd9715e6c718a5b3b48057049f0695f52bf4e32c18c33189c06ef"
 
 keycloak:
-  auth-server-url: http://localhost:8080
+  auth-server-url: https://keycloak.phumlaniarendse.co.za
   realm: ecommerce
   resource: invetory-service
   principle-attribute: preferred_username
