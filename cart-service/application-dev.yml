@@ -44,7 +44,7 @@ keycloak:
   resource: cart-service
   principle-attribute: preferred_username
   credentials:
-    secret: "{cipher}61866608b07b6e8326776198fcf9624548fa6a0252294b363ce278c3629e21e28f8a6ce493a559884fd0d4824a2f3c2bc1e1f2bda1dc868c281ef51379008e30"
+    secret: "{cipher}fa84fc6118782a6f0962c08368fdc415dea26475e0fe85d4da56f450e4c75be22feb2918f337589edec345fcd83b988beec41e94af299a84a6ab2dba30448c77"
   admin:
     username: "{cipher}1b1605dd29d70df25c643ed64a28779456c1453c2252432b3a77e77ae35935d0"
     password: "{cipher}9691f299e5d13785d56be58db20a811fbea1b1b8469c6d0b7dfb2040be6eac09"
