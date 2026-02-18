@@ -33,7 +33,7 @@ spring:
   cache:
     type: redis
   datasource:
-    url: jdbc:postgresql://postgres-product:5432/product_db
+    url: jdbc:postgresql://product-service-db:5432/product_db
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver

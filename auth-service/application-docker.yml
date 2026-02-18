@@ -8,7 +8,7 @@ spring:
     activate:
       on-profile: docker
   datasource:
-    url: jdbc:postgresql://postgres-auth:5432/auth_db
+    url: jdbc:postgresql://auth-service-db:5432/auth_db
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver

@@ -10,7 +10,7 @@ spring:
   main:
     web-application-type: reactive
   datasource:
-    url: jdbc:postgresql://postgres-api-gateway:5432/gateway_db
+    url: jdbc:postgresql://api-gateway-db:5432/gateway_db
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver

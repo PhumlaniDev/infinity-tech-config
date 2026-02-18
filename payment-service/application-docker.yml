@@ -31,7 +31,7 @@ spring:
       topic:
         enabled: true
   datasource:
-    url: jdbc:postgresql://postgres-paymentkeycloak:5432/payment_db
+    url: jdbc:postgresql://payment-service-db:5432/payment_db
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
