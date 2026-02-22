@@ -32,17 +32,6 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: https://keycloak.phumlaniarendse.co.za/realms/ecommerce
-#  mail:
-#    host: smtp.gmail.com
-#    port: 587
-#    username: "{cipher}2d53a4f5c04bfa61ad47c5ac020e7850e65b1fb46c61be8367cb89d3aec5878ae7d6176dfc9cb8faec5056e87cccb536"
-#    password: "{cipher}cf4c834689d8814a4c3942fd8e475f749adee978e026d3e802b309612d357b63d394082496df8474bf1dbc97ce2c7a4c079248969f7523def3096726610bb705e6a4c5e3c6a4792ae568508e7461d6b0dd14dc20c79671767cbf3b01f8ed81d3"
-#    properties:
-#      mail:
-#        smtp:
-#          auth: true
-#          starttls:
-#            enable: true
   cache:
     type: caffeine
 
@@ -52,7 +41,7 @@ keycloak:
   resource: auth-service
   principle-attribute: preferred_username
   credentials:
-    secret: "{cipher}5a94fada046e1bb8c4705fdc2134373fdd5cc3d302a9e10c608025ec9b4e52997465e9304ddb2ecf93d7d2572176f967b68863654259c51c854520461bd0591e"
+    secret: "{cipher}24ee35d8233ceb22e131c554b4ecd8bdf0e87342c75912877a6188a19c5fe74fc0e0549e635a130e0c8fd980ee31fe9fedf3c9760ac4154eb00f26d672a4ff77"
   admin:
     username: "{cipher}1b1605dd29d70df25c643ed64a28779456c1453c2252432b3a77e77ae35935d0"
     password: "{cipher}9691f299e5d13785d56be58db20a811fbea1b1b8469c6d0b7dfb2040be6eac09"

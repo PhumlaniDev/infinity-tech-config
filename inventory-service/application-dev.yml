@@ -68,7 +68,7 @@ keycloak:
   resource: inventory-service
   principle-attribute: preferred_username
   credentials:
-    secret: "{cipher}e02e6dc1cdec875a1f707f041de13a1d89b2a1f0194e892319bdf2d6bb72389cf8be25dec430aac4b127c6a26f3514e5fa4d1e70a02dd17f5d5d7300048067cd"
+    secret: "{cipher}3efb3d1882acc39aaa1b40fb06932ee5187b0fa00ca06c6ada2d9513ee4447cb1d22e3476af71fc02de0efbfc4488a3be71c5dd361d6ddc11744a3588cc14af6"
   admin:
     username: "{cipher}1b1605dd29d70df25c643ed64a28779456c1453c2252432b3a77e77ae35935d0"
     password: "{cipher}9691f299e5d13785d56be58db20a811fbea1b1b8469c6d0b7dfb2040be6eac09"

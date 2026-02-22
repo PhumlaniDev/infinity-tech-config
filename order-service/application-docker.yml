@@ -61,11 +61,6 @@ spring:
         jwt:
           issuer-uri: http://keycloak:8080/realms/ecommerce
           jwk-uri: http://keycloak:8080/realms/ecommerce/protocol/openid-connect/certs
-  rabbitmq:
-    host: rabbitmq
-    port: 5672
-    username: "{cipher}21ef876d345fc0f126fb77707df98e739755474e6d39a35bf01f3b9af2f15b7f"
-    password: "{cipher}3a2d49f7665bd9715e6c718a5b3b48057049f0695f52bf4e32c18c33189c06ef"
 
 keycloak:
   auth-server-url: http://keycloak:8080
@@ -73,13 +68,10 @@ keycloak:
   resource: order-service
   principle-attribute: preferred_username
   credentials:
-    secret: "{cipher}88894dc1609f5b3b5a57718480ead8f48168fb89d55adf68b4daf981d030e4f9758b97b8fbbc4fb534715659ee2ad7969c36e254639ccdbf0909f946a0712c20"
+    secret: "{cipher}13a4c96d6de094a74eccf3a59e0557e70d82d051323d6eb8101ba1bb125477e41550f3b19bcb75280ccceca803f6bfe078e2b5864b84ef8bc28c3492576e43ec"
   admin:
     username: "{cipher}1b1605dd29d70df25c643ed64a28779456c1453c2252432b3a77e77ae35935d0"
     password: "{cipher}9691f299e5d13785d56be58db20a811fbea1b1b8469c6d0b7dfb2040be6eac09"
-
-stripe:
-  webhook-secret: "{cipher}31c41e3bbe21203330b4b33f3153feefc0a92186d82ebb223c1e481bc482a971320f5b5ac2d612c35a045054b4740f5dfd12b99a9acbac57b17f1c502e9a1cefd9e2a6357f3dd75b7fd186256ebab1f402c357e051bd993b3376fc73081d7ac0"
 
 resilience4j:
   circuitbreaker:

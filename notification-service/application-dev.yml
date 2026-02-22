@@ -93,7 +93,7 @@ keycloak:
   resource: notification-service
   principle-attribute: preferred_username
   credentials:
-    secret: "{cipher}9ecc431d43e4a1db0f2aaeff281a67fb255308123e45166ce33f0220a59254ffdb90d2a0131741bfca6438ac96ba6191ac99f82c290c7b9583a9d90377aa4b0f"
+    secret: "{cipher}b25fad31e61085f797cd81170d5e5f42b5bdb258458113bd917a0018fcd03ab83696ee7f1d8f42f3942228cc62ad588ce5b1d64f800f665cb9d766118d27860e"
   admin:
     username: "{cipher}1b1605dd29d70df25c643ed64a28779456c1453c2252432b3a77e77ae35935d0"
     password: "{cipher}9691f299e5d13785d56be58db20a811fbea1b1b8469c6d0b7dfb2040be6eac09"

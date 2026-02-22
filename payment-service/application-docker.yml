@@ -122,7 +122,7 @@ keycloak:
   resource: payment-service
   principle-attribute: preferred_username
   credentials:
-    secret: "{cipher}0047b2f7ad5f5e34599312031da3092aa4c38ac18ad95d3e6e3d015d07e044931d153df1e220a5657e4ca2bfd2c0dffda51760e64315252e6d3fbc394fc67bd2"
+    secret: "{cipher}f1e390364573c69e1784db7841693bb6274c4b70b9ba8e429bbb156e963224450b873091510dfd86a8a01e3eff8e9c118447f28d758e7dc10547afcdfa2f9279"
   admin:
     username: "{cipher}1b1605dd29d70df25c643ed64a28779456c1453c2252432b3a77e77ae35935d0"
     password: "{cipher}9691f299e5d13785d56be58db20a811fbea1b1b8469c6d0b7dfb2040be6eac09"

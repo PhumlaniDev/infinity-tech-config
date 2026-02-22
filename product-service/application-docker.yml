@@ -61,11 +61,6 @@ spring:
         jwt:
           issuer-uri: http://keycloak:8080/realms/ecommerce
           jwk-uri: http://keycloak:8080/realms/ecommerce/protocol/openid-connect/certs
-  rabbitmq:
-    host: localhost
-    port: 5672
-    username: "{cipher}21ef876d345fc0f126fb77707df98e739755474e6d39a35bf01f3b9af2f15b7f"
-    password: "{cipher}3a2d49f7665bd9715e6c718a5b3b48057049f0695f52bf4e32c18c33189c06ef"
 
 eureka:
   client:
@@ -78,7 +73,7 @@ keycloak:
   resource: product-service
   principle-attribute: preferred_username
   credentials:
-    secret: "{cipher}b1799ef4cdf34c0f34076238fcd1843a57c97d7b971e729c7e3a9a9fac2013ddf4122f7e15497585cf3e28a37184493affa64f6f92b23bba2021df17020362b2"
+    secret: "{cipher}bce5d09009e581ac72c43de760c74be7bd127d01c5edb0254a5c6a6904a0511b5019b4290263d0b3c5cb4399163d2478cfe81638355d0d375f1522d9bbcb6b50"
   admin:
     username: "{cipher}1b1605dd29d70df25c643ed64a28779456c1453c2252432b3a77e77ae35935d0"
     password: "{cipher}9691f299e5d13785d56be58db20a811fbea1b1b8469c6d0b7dfb2040be6eac09"
