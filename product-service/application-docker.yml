@@ -4,11 +4,37 @@ server:
 spring:
   application:
     name: product-service
+
   config:
     activate:
       on-profile: docker
+
+  # ----- MongoDB--------------------------
+  data:
+    mongodb:
+      uri: mongodb://mongo:27017/product_db
+      auto-index-creation: false
+      username: product_user
+      password: product_pass
+
+    # ----- Redis--------------------------
+    redis:
+      host: redis
+      port: 6379
+      timeout: 2000ms
+      lettuce:
+        pool:
+          max-active: 8
+          min-idle: 2
+
+  # ----- Cache--------------------------
+  cache:
+    type: redis
+
+  # ----- Kafka--------------------------
   kafka:
-    bootstrap-servers: localhost:29092
+    bootstrap-servers: kafka:9092
+
     consumer:
       group-id: product-group
       auto-offset-reset: earliest
@@ -19,42 +45,22 @@ spring:
         spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
         spring.json.trusted.packages: "com.phumlanidev.commonevents.events"
         spring.json.use.type.headers: true
+
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       properties:
         spring.json.add.type.headers: true
+
     listener:
       concurrency: 3
       ack-mode: manual
+
     retry:
       topic:
         enabled: true
-  cache:
-    type: redis
-  datasource:
-    url: jdbc:postgresql://product-service-db:5432/product_db
-    username: postgres
-    password: postgres
-    driver-class-name: org.postgresql.Driver
-    hikari:
-      maximum-pool-size: 5       # Keep low to avoid exhausting local DB connections
-      minimum-idle: 2            # Few idle connections are enough
-      idle-timeout: 30000        # 30 sec before closing idle connections
-      max-lifetime: 1800000      # 30 minutes
-      connection-timeout: 10000  # 10 seconds max wait for a connection
-      pool-name: DevHikariCP
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-        format_sql: true
-  redis:
-    host: redis
-    port: 6379
+
+  # ----- Security--------------------------
   security:
     oauth2:
       resourceserver:
@@ -62,11 +68,13 @@ spring:
           issuer-uri: http://keycloak:8080/realms/ecommerce
           jwk-uri: http://keycloak:8080/realms/ecommerce/protocol/openid-connect/certs
 
+# ----- Eureka--------------------------
 eureka:
   client:
     service-url:
       defaultZone: http://eureka-server:8761/eureka
 
+# ----- Keycloak--------------------------
 keycloak:
   auth-server-url: http://keycloak:8080
   realm: ecommerce
@@ -78,6 +86,7 @@ keycloak:
     username: "{cipher}1b1605dd29d70df25c643ed64a28779456c1453c2252432b3a77e77ae35935d0"
     password: "{cipher}9691f299e5d13785d56be58db20a811fbea1b1b8469c6d0b7dfb2040be6eac09"
 
+# ----- Actuator & Metrics--------------------------
 management:
   endpoints:
     web:
@@ -99,6 +108,7 @@ management:
     tags:
       application: ${spring.application.name}
 
+# ----- Logging--------------------------
 logging:
   level:
     # Set your application's log level
@@ -116,3 +126,8 @@ logging:
     org.apache.kafka: WARN
     org.springframework.http.converter.json: INFO
     org.springframework.validation: INFO
+
+# ----- Product-specific--------------------------
+product:
+  cache:
+    ttl: 3600 # Time-to-live for product cache in seconds
