@@ -61,8 +61,8 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: https://keycloak.phumlaniarendse.co.za/realms/ecommerce
-          jwk-uri: https://keycloak.phumlaniarendse.co.za/realms/ecommerce/protocol/openid-connect/certs
+          issuer-uri: https://keycloak.phumlani.dev/realms/ecommerce
+          jwk-uri: https://keycloak.phumlani.dev/realms/ecommerce/protocol/openid-connect/certs
   rabbitmq:
     host: localhost
     port: 5672
@@ -88,7 +88,7 @@ spring:
     cache: false
 
 keycloak:
-  auth-server-url: https://keycloak.phumlaniarendse.co.za
+  auth-server-url: https://keycloak.phumlani.dev
   realm: ecommerce
   resource: notification-service
   principle-attribute: preferred_username

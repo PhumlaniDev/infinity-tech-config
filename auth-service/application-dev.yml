@@ -31,12 +31,12 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: https://keycloak.phumlaniarendse.co.za/realms/ecommerce
+          issuer-uri: https://keycloak.phumlani.dev/realms/ecommerce
   cache:
     type: caffeine
 
 keycloak:
-  auth-server-url: https://keycloak.phumlaniarendse.co.za/
+  auth-server-url: https://keycloak.phumlani.dev/
   realm: ecommerce
   resource: auth-service
   principle-attribute: preferred_username
@@ -45,7 +45,7 @@ keycloak:
   admin:
     username: "{cipher}1b1605dd29d70df25c643ed64a28779456c1453c2252432b3a77e77ae35935d0"
     password: "{cipher}9691f299e5d13785d56be58db20a811fbea1b1b8469c6d0b7dfb2040be6eac09"
-  logout_uri: https://keycloak.phumlaniarendse.co.za//realms/ecommerce/protocol/openid-connect/logout
+  logout_uri: https://keycloak.phumlani.dev//realms/ecommerce/protocol/openid-connect/logout
 
 eureka:
   client:

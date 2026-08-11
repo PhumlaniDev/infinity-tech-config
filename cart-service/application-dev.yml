@@ -36,10 +36,10 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: https://keycloak.phumlaniarendse.co.za/realms/ecommerce
-          jwk-uri: https://keycloak.phumlaniarendse.co.za/realms/ecommerce/protocol/openid-connect/certs
+          issuer-uri: https://keycloak.phumlani.dev/realms/ecommerce
+          jwk-uri: https://keycloak.phumlani.dev/realms/ecommerce/protocol/openid-connect/certs
 keycloak:
-  auth-server-url: https://keycloak.phumlaniarendse.co.za
+  auth-server-url: https://keycloak.phumlani.dev
   realm: ecommerce
   resource: cart-service
   principle-attribute: preferred_username
