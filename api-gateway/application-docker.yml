@@ -133,7 +133,8 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://keycloak:8080/realms/ecommerce
+          issuer-uri: https://keycloak.phumlani.dev/realms/ecommerce
+          jwk-uri: https://keycloak.phumlani.dev/realms/ecommerce/protocol/openid-connect/certs
 keycloak:
   principle-attribute: preferred_username
 
