@@ -1,5 +1,5 @@
 server:
-  port: 9100
+  port: 8181
 
 spring:
   application:
@@ -38,14 +38,15 @@ spring:
 keycloak:
   auth-server-url: http://keycloak:8080
   realm: ecommerce
-  resource: auth-service
+  resource: auth-service-client
   principle-attribute: preferred_username
   credentials:
-    secret: "{cipher}3f8de3f302e665d8de5b26b15998f677b7216c657ef4f6939906f64d7ad6d19a96a60bd28e40cfec55da4df4d860f7d299d31f85b6df6acdad5fb7f7273c881d8ed258ef41826c53c8529da75a03254ed4cb4f6673c5d918a9777d5259cc37f4abe6762151396c39b778089189bbc87d"
+    secret: "{cipher}98b6166452597d927dbc6eaf6111fdfd1c40aa634744493c5523528c80d71be286773c3977246e47e4e187c62b27ef7f7d4c9d3faeadef7cace5838c942cbc0a30d56b524518595646ddd8224e677e6d382b778ebcd65d423c78db676736f779d5f0b59d83ba42f64bcc2ebca066139f"
+
   admin:
-    username: "{cipher}1b1605dd29d70df25c643ed64a28779456c1453c2252432b3a77e77ae35935d0"
-    password: "{cipher}9691f299e5d13785d56be58db20a811fbea1b1b8469c6d0b7dfb2040be6eac09"
-  logout_uri: http://keycloak:8080/realms/ecommerce/protocol/openid-connect/logout
+    client-id: auth-service-admin
+    client-secret: "{cipher}e060c1a48a8f924f799248a94883205713ec9d179407040c613667987a867cc9ea1c795ca045e3725cc71823849b9aa78ec92273d21aa3da1a0bd1d4e054c65bf86ebf8d1c57e900255d5fa6531fa33a5a3a62271550db40944fd15dcf35c71f73bceef063b08a7eeeecd2ddbd18d980"
+    logout_uri: https://keycloak.phumlani.dev/realms/ecommerce/protocol/openid-connect/logout
 
 eureka:
   client:
@@ -56,30 +57,21 @@ management:
   endpoints:
     web:
       exposure:
-        include: "*"
+        include: health,info,prometheus
   health:
     readiness-state:
       enabled: true
     liveness-state:
       enabled: true
   endpoint:
-    shutdown:
-      access: unrestricted
     health:
       probes:
         enabled: true
-  info:
-    env:
-      enabled: true
   metrics:
     tags:
       application: ${spring.application.name}
 
 logging:
   level:
-    com.phumlanidev.authservice: DEBUG
-    org.hibernate.SQL: DEBUG
-    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
-    #    org.springframework.web: DEBUG
-    org.springframework.http.converter.json: DEBUG
-    org.springframework.validation: DEBUG
+    org.springframework.security: INFO
+    org.hibernate.SQL: INFO
