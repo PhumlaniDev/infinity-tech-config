@@ -1,5 +1,5 @@
 server:
-  port: 9600
+  port: 8094
 
 spring:
   application:
@@ -149,9 +149,6 @@ management:
     health:
       probes:
         enabled: true
-  info:
-    env:
-      enabled: true
   metrics:
     tags:
       application: ${spring.application.name}
