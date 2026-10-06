@@ -7,6 +7,7 @@ spring:
   config:
     activate:
       on-profile: docker
+    import: optional:configserver:${CONFIG_SERVER_URI:http://localhost:8888/}
   datasource:
     url: jdbc:postgresql://auth-service-db:5432/auth_db
     username: postgres

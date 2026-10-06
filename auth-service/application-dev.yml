@@ -7,6 +7,7 @@ spring:
   config:
     activate:
       on-profile: dev
+    import: optional:configserver:${CONFIG_SERVER_URI:http://localhost:8888/}
   datasource:
     url: jdbc:postgresql://localhost:5432/auth_db
     username: "{cipher}2dbb4f8fb118abdff5534ba5bc8c8ed8cc1435a333a2958811a3f9713215d1ee"
