@@ -12,14 +12,14 @@ spring:
   # ----- MongoDB--------------------------
   data:
     mongodb:
-      uri: mongodb://mongo:27017/product_db
+      uri: mongodb://${MONGO_HOST}:27017/productdb
       auto-index-creation: false
       username: product_user
       password: product_pass
 
     # ----- Redis--------------------------
     redis:
-      host: redis
+      host: ${REDIS_HOST}
       port: 6379
       timeout: 2000ms
       lettuce:
@@ -65,8 +65,8 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://keycloak:8080/realms/ecommerce
-          jwk-uri: http://keycloak:8080/realms/ecommerce/protocol/openid-connect/certs
+          issuer-uri: https://${KEYCLOAK_HOST}/realms/ecommerce
+          jwk-uri: https://${KEYCLOAK_HOST}/realms/ecommerce/protocol/openid-connect/certs
 
 # ----- Eureka--------------------------
 eureka:
@@ -76,7 +76,7 @@ eureka:
 
 # ----- Keycloak--------------------------
 keycloak:
-  auth-server-url: http://keycloak:8080
+  auth-server-url: https://${KEYCLOAK_HOST}
   realm: ecommerce
   resource: product-service
   principle-attribute: preferred_username
@@ -104,6 +104,9 @@ management:
   metrics:
     tags:
       application: ${spring.application.name}
+  zipkin:
+    tracing:
+      endpoint: http://${OBSERVABILITY_HOST}:${OBSERVABILITY_PORT}/api/v2/spans
 
 # ----- Logging--------------------------
 logging:

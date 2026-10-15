@@ -31,9 +31,9 @@ spring:
       topic:
         enabled: true
   datasource:
-    url: jdbc:postgresql://notification-service-db:5432/notification_db
-    username: postgres
-    password: postgres
+    url: jdbc:postgresql://${POSTGRES_HOST}:5432/notificationdb
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
     driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 5       # Keep low to avoid exhausting local DB connections
@@ -61,8 +61,8 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://keycloak:8080/realms/ecommerce
-          jwk-uri: http://keycloak:8080/realms/ecommerce/protocol/openid-connect/certs
+          issuer-uri: https://${KEYCLOAK_HOST}/realms/ecommerce
+          jwk-uri: https://${KEYCLOAK_HOST}/realms/ecommerce/protocol/openid-connect/certs
   rabbitmq:
     host: rabbitmq
     port: 5672
@@ -92,7 +92,7 @@ spring:
     cache: false
 
 keycloak:
-  auth-server-url: http://keycloak:8080
+  auth-server-url: https://${KEYCLOAK_HOST}
   realm: ecommerce
   resource: notification-service
   principle-attribute: preferred_username
@@ -124,6 +124,9 @@ management:
   metrics:
     tags:
       application: ${spring.application.name}
+  zipkin:
+    tracing:
+      endpoint: http://${OBSERVABILITY_HOST}:${OBSERVABILITY_PORT}/api/v2/spans
 
 logging:
   level:

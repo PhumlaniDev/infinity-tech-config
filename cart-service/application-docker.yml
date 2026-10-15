@@ -8,9 +8,9 @@ spring:
     activate:
       on-profile: docker
   datasource:
-    url: jdbc:postgresql://cart-service-db:5432/cart_db
-    username: postgres
-    password: postgres
+    url: jdbc:postgresql://${POSTGRES_HOST}:5432/cartdb
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
     driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 5       # Keep low to avoid exhausting local DB connections
@@ -36,10 +36,10 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://keycloak:8080/realms/ecommerce
-          jwk-uri: http://keycloak:8080/realms/ecommerce/protocol/openid-connect/certs
+          issuer-uri: https://${KEYCLOAK_HOST}/realms/ecommerce
+          jwk-uri: https://${KEYCLOAK_HOST}/realms/ecommerce/protocol/openid-connect/certs
 keycloak:
-  auth-server-url: http://keycloak:8080
+  auth-server-url: https://${KEYCLOAK_HOST}
   realm: ecommerce
   resource: cart-service
   principle-attribute: preferred_username
@@ -105,6 +105,9 @@ management:
   metrics:
     tags:
       application: ${spring.application.name}
+  zipkin:
+    tracing:
+      endpoint: http://${OBSERVABILITY_HOST}:${OBSERVABILITY_PORT}/api/v2/spans
 
 logging:
   level:

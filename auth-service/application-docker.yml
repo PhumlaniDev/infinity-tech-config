@@ -9,9 +9,9 @@ spring:
       on-profile: docker
     import: optional:configserver:${CONFIG_SERVER_URI:http://localhost:8888/}
   datasource:
-    url: jdbc:postgresql://auth-service-db:5432/auth_db
-    username: postgres
-    password: postgres
+    url: jdbc:postgresql:// ${POSTGRES_HOST}:5432/authdb
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
     driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 5       # Keep low to avoid exhausting local DB connections
@@ -32,12 +32,13 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://keycloak:8080/realms/ecommerce
+          issuer-uri: http://${KEYCLOAK_HOST}/realms/ecommerce
+          jwk-uri: http://${KEYCLOAK_HOST}/realms/ecommerce/protocol/openid-connect/certs
   cache:
     type: caffeine
 
 keycloak:
-  auth-server-url: http://keycloak:8080
+  auth-server-url: http://${KEYCLOAK_HOST}
   realm: ecommerce
   resource: auth-service-client
   principle-attribute: preferred_username
@@ -47,7 +48,7 @@ keycloak:
   admin:
     client-id: auth-service-admin
     client-secret: "{cipher}e060c1a48a8f924f799248a94883205713ec9d179407040c613667987a867cc9ea1c795ca045e3725cc71823849b9aa78ec92273d21aa3da1a0bd1d4e054c65bf86ebf8d1c57e900255d5fa6531fa33a5a3a62271550db40944fd15dcf35c71f73bceef063b08a7eeeecd2ddbd18d980"
-    logout_uri: https://keycloak.phumlani.dev/realms/ecommerce/protocol/openid-connect/logout
+    logout_uri: https://${KEYCLOAK_HOST}/realms/ecommerce/protocol/openid-connect/logout
 
 eureka:
   client:
@@ -71,6 +72,9 @@ management:
   metrics:
     tags:
       application: ${spring.application.name}
+  zipkin:
+    tracing:
+      endpoint: http://${OBSERVABILITY_HOST}:${OBSERVABILITY_PORT}/api/v2/spans
 
 logging:
   level:

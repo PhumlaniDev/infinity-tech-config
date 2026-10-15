@@ -31,10 +31,10 @@ spring:
       topic:
         enabled: true
   datasource:
-    url: jdbc:postgresql://inventory-service-db:5432/inventory_db
-    username: postgres
-    password: postgres
-    driver-class-name: org.postgresql.Driver
+    url: jdbc:mysql://${MYSQL_HOST}:3306/inventorydb?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    username: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       maximum-pool-size: 5       # Keep low to avoid exhausting local DB connections
       minimum-idle: 2            # Few idle connections are enough
@@ -48,14 +48,14 @@ spring:
     show-sql: true
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+        dialect: org.hibernate.dialect.MySQLDialect
         format_sql: true
   security:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://keycloak:8080/realms/ecommerce
-          jwk-uri: http://keycloak:8080/realms/ecommerce/protocol/openid-connect/certs
+          issuer-uri: https://${KEYCLOAK_HOST}/realms/ecommerce
+          jwk-uri: https://${KEYCLOAK_HOST}/realms/ecommerce/protocol/openid-connect/certs
   rabbitmq:
     host: rabbitmq
     port: 5672
@@ -63,7 +63,7 @@ spring:
     password: "{cipher}3a2d49f7665bd9715e6c718a5b3b48057049f0695f52bf4e32c18c33189c06ef"
 
 keycloak:
-  auth-server-url: http://keycloak:8080
+  auth-server-url: http://${KEYCLOAK_HOST}
   realm: ecommerce
   resource: inventory-service
   principle-attribute: preferred_username
@@ -95,6 +95,9 @@ management:
   metrics:
     tags:
       application: ${spring.application.name}
+  zipkin:
+    tracing:
+      endpoint: http://${OBSERVABILITY_HOST}:${OBSERVABILITY_PORT}/api/v2/spansw
 
 logging:
   level:
