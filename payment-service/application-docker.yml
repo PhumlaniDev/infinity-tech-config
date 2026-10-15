@@ -31,9 +31,9 @@ spring:
       topic:
         enabled: true
   datasource:
-    url: jdbc:postgresql://payment-service-db:5432/payment_db
-    username: postgres
-    password: postgres
+    url: jdbc:postgresql://${POSTGRES_HOST}:5432/paymentdb
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
     driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 5       # Keep low to avoid exhausting local DB connections
@@ -56,8 +56,8 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://keycloak:8080/realms/ecommerce
-          jwk-uri: http://keycloak:8080/realms/ecommerce/protocol/openid-connect/certs
+          issuer-uri: https://${KEYCLOAK_HOST}/realms/ecommerce
+          jwk-uri: https://${KEYCLOAK_HOST}/realms/ecommerce/protocol/openid-connect/certs
 
 resilience4j:
   circuitbreaker:
@@ -117,9 +117,9 @@ eureka:
       defaultZone: http://eureka-server:8761/eureka
 
 keycloak:
-  auth-server-url: http://keycloak:8080
+  auth-server-url: https://${KEYCLOAK_HOST}
   realm: ecommerce
-  token-uri: https://keycloak.phumlani.dev/realms/ecommerce/protocol/openid-connect/token
+  token-uri: https://${KEYCLOAK_HOST}/realms/ecommerce/protocol/openid-connect/token
   resource: payment-service
   principle-attribute: preferred_username
   credentials:
@@ -152,6 +152,9 @@ management:
   metrics:
     tags:
       application: ${spring.application.name}
+  zipkin:
+    tracing:
+      endpoint: http://${OBSERVABILITY_HOST}:${OBSERVABILITY_LOKI_PORT}/api/v2/spans
 
 logging:
   level:
