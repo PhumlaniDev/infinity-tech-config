@@ -90,10 +90,10 @@ spring:
 keycloak:
   auth-server-url: https://keycloak.phumlani.dev
   realm: ecommerce
-  resource: notification-service
+  resource: notification-service-admin
   principle-attribute: preferred_username
   credentials:
-    secret: "{cipher}b25fad31e61085f797cd81170d5e5f42b5bdb258458113bd917a0018fcd03ab83696ee7f1d8f42f3942228cc62ad588ce5b1d64f800f665cb9d766118d27860e"
+    secret: "{cipher}21f9db4505c43bd9c3ac6b7fa9c6d99b39a7a0c0f348917c8e0967fa8c51d2fcba1c83acb68073a8b0f550a948c96aba36c5cd58ee520194456dfb5734e0b0e5571aa3a0eb30a63161dd3dfc928141da9e554a5864f9be6ff3f83a2a21af096882251907aa5c2c9f3e023112019bac59"
   admin:
     username: "{cipher}1b1605dd29d70df25c643ed64a28779456c1453c2252432b3a77e77ae35935d0"
     password: "{cipher}9691f299e5d13785d56be58db20a811fbea1b1b8469c6d0b7dfb2040be6eac09"
