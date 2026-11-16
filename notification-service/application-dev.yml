@@ -136,3 +136,6 @@ logging:
     org.springframework.cloud.stream: INFO
     org.springframework.http.converter.json: INFO
     org.springframework.validation: INFO
+
+    org.apache.kafka: OFF
+    org.springframework.kafka: OFF
