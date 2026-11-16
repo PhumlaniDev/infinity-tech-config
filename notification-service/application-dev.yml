@@ -135,6 +135,5 @@ logging:
     org.springframework.amqp: INFO
     org.springframework.cloud.stream: INFO
     org.springframework.kafka: WARN
-    org.apache.kafka: WARN
     org.springframework.http.converter.json: INFO
     org.springframework.validation: INFO
